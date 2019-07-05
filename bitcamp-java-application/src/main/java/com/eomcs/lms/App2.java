@@ -10,29 +10,45 @@ public class App2 {
     java.io.InputStream keyboard = System.in;
     keyScan = new Scanner(keyboard);
     
-    int no = getIntValue("번호? ");
-    String name = getStringValue("이름? ");
-    String email = getStringValue("이메일? ");
-    int password = getIntValue("암호? ");
-    String photo = getStringValue("사진? ");
-    String phoneNum = getStringValue("전화? ");
-    Date signUpDate = getDateValue("가입일? ");
+    int[] no = new int[100];
+    String[] name = new String[100];
+    String[] email = new String[100];
+    int[] password = new int[100];
+    String[] photo = new String[100];
+    String[] phoneNum = new String[100];
+    Date[] signUpDate = new Date[100];
+    
+    int i = 0;
+    for ( ; i<no.length; i++) {
+      no[i] = getIntValue("번호? ");
+      name[i] = getStringValue("이름? ");
+      email[i] = getStringValue("이메일? ");
+      password[i] = getIntValue("암호? ");
+      photo[i] = getStringValue("사진? ");
+      phoneNum[i] = getStringValue("전화? ");
+      signUpDate[i] = Date.valueOf("2019-01-01");
+      
+      System.out.print("계속 입력하시겠습니까? (Y/N)");
+      String response = keyScan.nextLine();
+      if (response.equalsIgnoreCase("N")) {
+        break;
+      }
+    }
+    
     
     System.out.println();
     
-    System.out.println("번호: " + no);
-    System.out.println("이름: " + name);
-    System.out.println("이메일: " + email);
-    System.out.println("암호: " + password);
-    System.out.println("사진: " + photo);
-    System.out.println("전화: " + phoneNum);
-    System.out.println("가입일: " + signUpDate);
+    for (int i2 = 0; i2 <= i; i2++) {
+      System.out.printf("%s, %s , %s\t, %s\t, %s\n",
+          no[i2], name[i2], email[i2], phoneNum[i2], signUpDate[i2]);
+    }
+    
   }
   
   private static int getIntValue(String message) {
     while (true) {
       try {
-        System.out.println(message);
+        System.out.print(message);
         return Integer.parseInt(keyScan.nextLine());
       } catch (NumberFormatException e) {
         System.out.println("잘못된 숫자입니다.");
@@ -41,14 +57,14 @@ public class App2 {
   }
   
   private static String getStringValue(String message) {
-    System.out.println(message);
+    System.out.print(message);
     return keyScan.nextLine();
   }
   
   private static Date getDateValue(String message) {
     while (true) {
       try {
-        System.out.println(message);
+        System.out.print(message);
         return Date.valueOf(keyScan.nextLine());
       } catch (IllegalArgumentException e) {
         System.out.println("2019-07-05의 형태로 입력해주세요.");
