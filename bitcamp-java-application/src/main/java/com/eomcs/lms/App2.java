@@ -10,23 +10,20 @@ public class App2 {
     java.io.InputStream keyboard = System.in;
     keyScan = new Scanner(keyboard);
     
-    int[] no = new int[100];
-    String[] name = new String[100];
-    String[] email = new String[100];
-    int[] password = new int[100];
-    String[] photo = new String[100];
-    String[] phoneNum = new String[100];
-    Date[] signUpDate = new Date[100];
+    Lesson2[] lessons = new Lesson2[100];
     
     int i = 0;
-    for ( ; i<no.length; i++) {
-      no[i] = getIntValue("번호? ");
-      name[i] = getStringValue("이름? ");
-      email[i] = getStringValue("이메일? ");
-      password[i] = getIntValue("암호? ");
-      photo[i] = getStringValue("사진? ");
-      phoneNum[i] = getStringValue("전화? ");
-      signUpDate[i] = Date.valueOf("2019-01-01");
+    for ( ; i<lessons.length; i++) {
+      Lesson2 lesson = new Lesson2();
+      lesson.no = getIntValue("번호? ");
+      lesson.name = getStringValue("이름? ");
+      lesson.email = getStringValue("이메일? ");
+      lesson.password = getIntValue("암호? ");
+      lesson.photo = getStringValue("사진? ");
+      lesson.phoneNum = getStringValue("전화? ");
+      lesson.signUpDate = Date.valueOf("2019-01-01");
+      
+      lessons[i] = lesson;
       
       System.out.print("계속 입력하시겠습니까? (Y/N)");
       String response = keyScan.nextLine();
@@ -35,12 +32,12 @@ public class App2 {
       }
     }
     
-    
     System.out.println();
     
     for (int i2 = 0; i2 <= i; i2++) {
+      Lesson2 lesson = lessons[i2];
       System.out.printf("%s, %s , %s\t, %s\t, %s\n",
-          no[i2], name[i2], email[i2], phoneNum[i2], signUpDate[i2]);
+          lesson.no, lesson.name, lesson.email, lesson.phoneNum, lesson.signUpDate);
     }
     
   }
@@ -60,16 +57,4 @@ public class App2 {
     System.out.print(message);
     return keyScan.nextLine();
   }
-  
-  private static Date getDateValue(String message) {
-    while (true) {
-      try {
-        System.out.print(message);
-        return Date.valueOf(keyScan.nextLine());
-      } catch (IllegalArgumentException e) {
-        System.out.println("2019-07-05의 형태로 입력해주세요.");
-      }
-    }
-  }
-  
 }
