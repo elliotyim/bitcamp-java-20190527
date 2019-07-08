@@ -2,7 +2,7 @@ package com.eomcs.lms;
 
 import java.sql.Date;
 
-public class Lesson3 {
+public class Board {
   int no;
   String contents;
   Date writtenDate;

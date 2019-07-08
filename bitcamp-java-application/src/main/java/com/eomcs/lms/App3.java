@@ -10,17 +10,17 @@ public class App3 {
     java.io.InputStream keyboard = System.in;
     keyScan = new Scanner(keyboard);
     
-    Lesson3[] lessons = new Lesson3[100];
+    Board[] boards = new Board[100];
     
     int i = 0;
-    for ( ; i<lessons.length; i++) {
-      Lesson3 lesson = new Lesson3();
-      lesson.no = getIntValue("번호? ");
-      lesson.contents = getStringValue("내용? ");
-      lesson.writtenDate = Date.valueOf("2019-01-01");
-      lesson.view = 0;
+    for ( ; i<boards.length; i++) {
+      Board board = new Board();
+      board.no = getIntValue("번호? ");
+      board.contents = getStringValue("내용? ");
+      board.writtenDate = Date.valueOf("2019-01-01");
+      board.view = 0;
       
-      lessons[i] = lesson;
+      boards[i] = board;
       
       System.out.print("계속 입력하시겠습니까? (Y/N)");
       String response = keyScan.nextLine();
@@ -32,9 +32,9 @@ public class App3 {
     System.out.println();
     
     for (int i2 = 0; i2 <= i; i2++) {
-      Lesson3 lesson = lessons[i2];
+      Board board = boards[i2];
       System.out.printf("%s, %s\t, %s, %s\n",
-          lesson.no, lesson.contents, lesson.writtenDate, lesson.view);
+          board.no, board.contents, board.writtenDate, board.view);
     }
   }
   

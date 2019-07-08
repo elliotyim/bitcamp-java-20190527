@@ -2,7 +2,7 @@ package com.eomcs.lms;
 
 import java.sql.Date;
 
-public class Lesson2 {
+public class Member {
   int no;
   String name;
   String email;

@@ -10,20 +10,20 @@ public class App2 {
     java.io.InputStream keyboard = System.in;
     keyScan = new Scanner(keyboard);
     
-    Lesson2[] lessons = new Lesson2[100];
+    Member[] members = new Member[100];
     
     int i = 0;
-    for ( ; i<lessons.length; i++) {
-      Lesson2 lesson = new Lesson2();
-      lesson.no = getIntValue("번호? ");
-      lesson.name = getStringValue("이름? ");
-      lesson.email = getStringValue("이메일? ");
-      lesson.password = getIntValue("암호? ");
-      lesson.photo = getStringValue("사진? ");
-      lesson.phoneNum = getStringValue("전화? ");
-      lesson.signUpDate = Date.valueOf("2019-01-01");
+    for ( ; i<members.length; i++) {
+      Member member = new Member();
+      member.no = getIntValue("번호? ");
+      member.name = getStringValue("이름? ");
+      member.email = getStringValue("이메일? ");
+      member.password = getIntValue("암호? ");
+      member.photo = getStringValue("사진? ");
+      member.phoneNum = getStringValue("전화? ");
+      member.signUpDate = Date.valueOf("2019-01-01");
       
-      lessons[i] = lesson;
+      members[i] = member;
       
       System.out.print("계속 입력하시겠습니까? (Y/N)");
       String response = keyScan.nextLine();
@@ -35,9 +35,9 @@ public class App2 {
     System.out.println();
     
     for (int i2 = 0; i2 <= i; i2++) {
-      Lesson2 lesson = lessons[i2];
+      Member member = members[i2];
       System.out.printf("%s, %s , %s\t, %s\t, %s\n",
-          lesson.no, lesson.name, lesson.email, lesson.phoneNum, lesson.signUpDate);
+          member.no, member.name, member.email, member.phoneNum, member.signUpDate);
     }
     
   }
