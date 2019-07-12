@@ -6,7 +6,6 @@ import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.util.Input;
 
 public class BoardHandler {
-
   
   private BoardList boardList = new BoardList();
   private Input input;
