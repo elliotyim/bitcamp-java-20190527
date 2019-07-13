@@ -7,6 +7,7 @@ public class Test03 {
     String s1 = new String("Hello"); // 힙에 생성된다.
     String sx = "Hello";
     String s2 = s1.intern(); // s1이 가리키는 인스턴스를 상수풀에도 복제한다.
+                             // (그렇다고 그 인스턴스를 가리키는 것은 아님)
                              // 이미 상수풀에 있다면 기존의 객체를 리턴한다.
     String s3 = "Hello"; // 위에서 이미 만든 인스턴스 주소를 리턴한다.
     
@@ -26,6 +27,13 @@ public class Test03 {
       System.out.println("s2 == sx");
     else
       System.out.println("s2 != sx");
+    
+    // 각 String이 가리키는 메모리의 주소는 달라야 하지만
+    // String의 경우만 예외로 hashCode 메소드는 같은 메모리 주소를 리턴한다.
+    System.out.println(s1.hashCode());
+    System.out.println(sx.hashCode());
+    System.out.println(s2.hashCode());
+    System.out.println(s3.hashCode());
     
     
   }
