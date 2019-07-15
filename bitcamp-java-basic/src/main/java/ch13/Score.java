@@ -3,9 +3,9 @@ package ch13;
 public class Score {
   
   private String name;
-  private int kor;
-  private int eng;
-  private int math;
+  protected int kor;
+  protected int eng;
+  protected int math;
   
   // 서브 클래스에서 사용할 필드는 protected로 접근을 풀어 준다.
   // => 접근 범위를 넓히는 것은 기존 코드에 영향을 미치지 않는다.
@@ -28,6 +28,7 @@ public class Score {
     if (kor >= 0 && kor <= 100) { // 유효한 점수인 경우에만 저장한다.
       this.kor = kor;
       this.compute(); // 유효한 값이라면 다시 합계와 평균을 계산한다.
+                      // 만약 이 setKor이 Score3에서 넘어왔다면 this는 그 객체에서 먼저 compute()를 찾는다.
     }
   }
   
@@ -61,6 +62,7 @@ public class Score {
   
   // 서브 클래스에서 사용할 수 있도록 접근 범위를 넓힌다.
   protected void compute() {
+    System.out.println("Score.compute() 호출됨!");
     this.sum = this.kor + this.eng + this.math;
     this.aver = this.sum / 3f;
   }
