@@ -1,5 +1,7 @@
 package com.eomcs.util;
 
+import java.util.Arrays;
+
 public class ArrayList {
   private static final int DEFAULT_CAPACITY = 100;
   
@@ -7,9 +9,7 @@ public class ArrayList {
   private int size = 0;
   
   public ArrayList() {
-    // 특수 문법. 생성자를 호출함
-    // 다만 생성자만이 다른 생성자를 호출함.
-    this(DEFAULT_CAPACITY); //생성자에서 다른 생성자를 호출할 수 있다.
+    this(DEFAULT_CAPACITY);
   }
   
   public ArrayList(int initialCapacity) {
@@ -22,16 +22,13 @@ public class ArrayList {
   
   public void add(Object obj) {
     if (this.size == list.length) {
-      throw new RuntimeException("배열이 꽉 찼습니다!");
+      int oldCapacity = list.length;
+      int newCapacity = oldCapacity + (oldCapacity >> 1);
+      list = Arrays.copyOf(this.list, newCapacity);
     }
-    //this(100); // 컴파일 오류! 일반 메서드는 생성자를 호출할 수 없다.
     this.list[this.size++] = obj;
   }
   public Object[] toArray() {
-    Object[] arr = new Object[this.size];
-    for (int i = 0; i < this.size; i++) {
-      arr[i] = this.list[i];
-    }
-    return arr;
+    return Arrays.copyOf(this.list, this.size);
   }
 }
