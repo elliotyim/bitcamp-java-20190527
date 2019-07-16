@@ -43,4 +43,68 @@ public class BoardHandler {
           board.getCreatedDate(), board.getViewCount());
     }
   }
+
+  public void detailBoard() {
+    int no = input.getIntValue("번호? ");
+    
+    Board board = null;
+    for (int i = 0; i<boardList.size(); i++) {
+      if (no == boardList.get(i).getNo()) {
+        board = boardList.get(i);
+      }
+    }
+    
+    if (board == null) {
+      System.out.println("해당 게시글을 찾을 수 없습니다.");
+      return;
+    }
+    
+    System.out.println("내용: " + board.getContents());
+    System.out.println("작성일: " + board.getCreatedDate());
+    
+  }
+
+  public void updateBoard() {
+    int no = input.getIntValue("번호? ");
+    
+    Board board = null;
+    for (int i = 0; i<boardList.size(); i++) {
+      if (no == boardList.get(i).getNo()) {
+        board = boardList.get(i);
+      }
+    }
+    
+    if (board == null) {
+      System.out.println("해당 게시글을 찾을 수 없습니다.");
+      return;
+    }
+    
+    String str = input.getStringValue("내용? ");
+    
+    if (str.length()>0) {
+      board.setContents(str);
+    }
+    
+    System.out.println("게시글을 변경했습니다.");
+    
+  }
+
+  public void deleteBoard() {
+    int no = input.getIntValue("번호? ");
+    
+    Board board = null;
+    for (int i = 0; i<boardList.size(); i++) {
+      if (no == boardList.get(i).getNo()) {
+        boardList.remove(i);
+        System.out.println("게시글을 삭제했습니다.");
+        return;
+      }
+    }
+    
+    if (board == null) {
+      System.out.println("해당 게시글을 찾을 수 없습니다.");
+      return;
+    }
+    
+  }
 }

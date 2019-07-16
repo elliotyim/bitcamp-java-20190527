@@ -34,4 +34,86 @@ public class MemberHandler {
           member.getRegisteredDate());
     }
   }
+
+  public void detailMember() {
+    int no = input.getIntValue("번호? ");
+    
+    Member member = null;
+    for (int i = 0; i<memberList.size(); i++) {
+      if (no == memberList.get(i).getNo()) {
+        member = memberList.get(i);
+      }
+    }
+    
+    if (member == null) {
+      System.out.println("해당 회원을 찾을 수 없습니다.");
+      return;
+    }
+    
+    System.out.println("이름: " + member.getName());
+    System.out.println("이메일: " + member.getEmail());
+    System.out.println("암호: " + member.getPassword());
+    System.out.println("사진: " + member.getPhoto());
+    System.out.println("전화: " + member.getPhoneNum());
+    System.out.println("가입일: " + member.getRegisteredDate());
+  }
+  
+  public void updateMember() {
+    int no = input.getIntValue("번호? ");
+    
+    Member member = null;
+    for (int i = 0; i<memberList.size(); i++) {
+      if (no == memberList.get(i).getNo()) {
+        member = memberList.get(i);
+      }
+    }
+    
+    if (member == null) {
+      System.out.println("해당 회원을 찾을 수 없습니다.");
+      return;
+    }
+    
+    String str = input.getStringValue("이름(" + member.getName() + ")? ");
+    if (str.length()>0) {
+      member.setName(str);
+    }
+    
+    str = input.getStringValue("이메일(" + member.getEmail()+ ")? ");
+    if (str.length()>0) {
+      member.setEmail(str);
+    }
+    
+    member.setPassword(input.getIntValue("암호(" + member.getPassword()+ ")? "));
+    
+    
+    str = input.getStringValue("사진(" + member.getPhoto()+ ")? ");
+    if (str.length()>0) {
+      member.setPhoto(str);
+    }
+    
+    str = input.getStringValue("전화(" + member.getPhoneNum()+ ")? ");
+    if (str.length()>0) {
+      member.setPhoneNum(str);
+    }
+    
+  }
+
+  public void deleteMember() {
+    int no = input.getIntValue("번호? ");
+    
+    Member member = null;
+    for (int i = 0; i<memberList.size(); i++) {
+      if (no == memberList.get(i).getNo()) {
+        memberList.remove(i);
+        System.out.println("해당 회원을 삭제했습니다.");
+        return;
+      }
+    }
+    
+    if (member == null) {
+      System.out.println("해당 회원을 찾을 수 없습니다.");
+      return;
+    }
+    
+  }
 }
