@@ -23,6 +23,7 @@ public class Test13_1 {
       return (Engine) super.clone();
     }
   }
+  
   static class Car implements Cloneable {
     String maker;
     String name;
@@ -42,7 +43,7 @@ public class Test13_1 {
     @Override
     public Car clone() throws CloneNotSupportedException {
       // 복제를 위한 코드를 따로 작성할 필요가 없다. JVM이 알아서 해준다. 
-      // 그냥 상속 받은 메서드를 오바라이딩하고, 접근 권한을 public 으로 확대한다.
+      // 그냥 상속 받은 메서드를 오버라이딩하고, 접근 권한을 public 으로 확대한다.
       // 리턴 타입은 해당 클래스 이름으로 변경한다.
       return (Car) super.clone();
     }
