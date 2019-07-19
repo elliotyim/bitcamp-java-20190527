@@ -1,7 +1,10 @@
 // 상속 문법을 이용하여 스택 만들기
-package com.eomcs.util;
+package com.eomcs.util.step2;
 
-public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E> {
+import com.eomcs.util.Iterator;
+import com.eomcs.util.LinkedList;
+
+public class Stack<E> extends LinkedList<E> implements Cloneable {
   public void push(E value) {
     add(value);
   }
@@ -28,23 +31,24 @@ public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E> {
   public boolean empty() {
     return size() == 0;
   }
-  @Override
-  public Iterator<E> iterator() {
-    // 특정 메서드 안에서만 사용되는 클래스라면 메서드 안에 선언하라!
-    // 이렇게 메서드 안에 선언된 중첩 클래스를 "local class"라 부른다.
-    return new Iterator<E>() {
-      
-      @Override
-      public boolean hasNext() {
-        return size() > 0;
-      }
-      
-      @Override
-      public E next() {
-        return pop();
-      }
-    };
+  
+  // 스택에서 Iterator를 제공한다.
+  public Iterator<E> getIterator() {
+    return new StackIterator();
   }
   
+  private class StackIterator implements Iterator<E> {
+    
+    @Override
+    public boolean hasNext() {
+      return size() > 0;
+    }
+
+    @Override
+    public E next() {
+      return pop();
+    }
+    
+  }
   
 }
