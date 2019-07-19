@@ -54,7 +54,7 @@ public class Test13_1 {
     Car car = new Car("비트자동차", "비트비트", engine);
     
     // 자동차 복제
-    Car car2 = car.clone();
+    Car car2 = car;
 
     System.out.println(car == car2);
     System.out.println(car);

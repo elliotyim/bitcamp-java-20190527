@@ -114,22 +114,22 @@ public class App {
     }
   }
 
-  private static void printCommandHistory() throws Exception {
+  private static void printCommandHistory() throws Exception{
     Stack<String> stack = commandStack.clone();
     while (!stack.empty()) {
       System.out.println(stack.pop());
     }
   }
   
-  private static void printCommandHistory2() throws Exception {
+  private static void printCommandHistory2() throws Exception{
     Queue<String> queue = commandQueue.clone();
     int count = 0;
     while (!queue.empty()) {
       System.out.println(queue.poll());
       if (++count % 5 == 0) {
-        System.out.println(":");
-        if (keyScan.nextLine().equalsIgnoreCase("q"))
-          break;
+          System.out.print(":");
+          if (keyScan.nextLine().equals("q"))
+            break;
       }
     }
   }
