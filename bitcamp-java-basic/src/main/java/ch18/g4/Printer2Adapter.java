@@ -8,7 +8,7 @@ public class Printer2Adapter implements Printer2 {
   
   // 이 클래스는 중간에서 Print2에 꼽을 수 있도록 중계해주는
   // 역할만 하기 때문에 이 클래스가 직접 Printer 기능을 구현해서는 안된다.
-  // 대신 Printer 기능은 기존 클래스에게 맡겨야 한
+  // 대신 Printer 기능은 기존 클래스에게 맡겨야 한다
   Printer originalPrinter;
   
   public Printer2Adapter(Printer originalPrinter) {
