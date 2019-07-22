@@ -1,5 +1,7 @@
 // 인터페이스 구현 - 새로 추가한 규칙에 따라 클래스를 구현한다. 
-package ch18.g;
+package ch18.g3;
+
+import ch18.g2.B;
 
 public class My3 implements B {
   // 원래 B에 선언된 메서드 구현 
