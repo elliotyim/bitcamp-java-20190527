@@ -26,8 +26,12 @@ public class Test03 {
     System.out.println(list);
     
     // contains(): 
-    // => 인스턴스가 다르더라도 equals()의 리턴 값이 true 라면 
+    // => 인스턴스가 다르더라도
+    //    equals()의 리턴 값이 true 이면
     //    같은 값이 목록에 있는 것으로 판단한다.
+    //    hashCode()의 리턴 값이 같을 필요는 없다.
+    // 
+    //    현실에서도 물리적으로는 다른 키라고 해도 키의 모양이 같으면 같은 키로 쓸 수 있는 것과 같다.
     System.out.println(list.contains(s2));
     System.out.println(list.contains(s4));
     

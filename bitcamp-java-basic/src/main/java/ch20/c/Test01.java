@@ -28,7 +28,7 @@ public class Test01 {
     // => 꺼내주는 객체(iterator)의 도움을 받아야 한다.
     //
     Iterator<String> iterator = set.iterator(); 
-    
+
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
     }
