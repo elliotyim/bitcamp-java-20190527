@@ -7,6 +7,7 @@ public class Test01 {
   // => Exception 또는 RuntimeException을 상속 받아 만든다.
   // => 예외 클래스는 수퍼 클래스에 기능을 덧붙이는 것이 아니다.
   // => 단지 클래스 이름으로 예외를 직관적으로 알리기 위해 사용한다.
+  //    (라벨을 붙이는 것이나 마찬가지임)
   //
   static class MyException extends Exception {
 

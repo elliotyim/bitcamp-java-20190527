@@ -29,7 +29,7 @@ public class Test01 {
   
   //1) 예외 상황을 보고하지 않는 경우 
   static String getName(int index) {
-    return list.get(index);
+      return list.get(index);
   }
  
 }
