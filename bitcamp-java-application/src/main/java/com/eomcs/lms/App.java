@@ -52,6 +52,8 @@ public class App {
     
     // 이전에 저장된 애플리케이션 데이터를 로딩한다.
     loadLessonData();
+    loadBoardData();
+    loadMemberData();
     
     keyScan = new Scanner(System.in);
     // Input 생성자를 통해 Input이 의존하는 객체인 Scanner를 주입한다.
@@ -131,6 +133,8 @@ public class App {
     
     // 애플리케이션의 실행을 종료하기 전에 데이터를 저장한다.
     saveLessonData();
+    saveBoardData();
+    saveMemberData();
   }
   private static void printCommandHistory(Iterable<String> list) {
     Iterator<String> iterator = list.iterator();
@@ -228,6 +232,204 @@ public class App {
             lesson.getEndDate(),
             lesson.getTotalHours(),
             lesson.getDayHours()); 
+        out.write(str);
+      }
+    } catch (FileNotFoundException e) {
+      // 출력할 파일을 생성하지 못할 때
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("파일을 생성할 수 없습니다!");
+      
+    } catch (IOException e) {
+      // 파일에 데이터를 출력하다가 오류가 발생하면,
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("파일에 데이터를 출력하는 중에 오류 발생!");
+    } finally {
+      try {
+        if (out != null)
+          out.close();
+      } catch (Exception e) {
+        // close() 하다가 발생된 예외는 따로 처리할 게 없다.
+        // 그냥 빈 채로 둔다.
+      }
+    }
+  }
+  
+  private static void loadBoardData() {
+    // File의 정보를 준비
+    File file = new File("./board.csv");
+    
+    FileReader in = null;
+    Scanner scan = null;
+    
+    try {
+      // 파일 정보를 바탕으로 데이터를 읽어주는 객체 준비
+      in = new FileReader(file);
+      scan = new Scanner(in);
+      
+      while (scan.hasNextLine()) {
+        // 파일에서 한 줄 읽는다.
+        String line = scan.nextLine();
+        
+        // 문자열을 콤마로 분리한다. 분리된 데이터는 배열에 담겨 리턴된다.
+        String[] data = line.split(",");
+        
+        // 수업 데이터를 담을 Lesson 객체를 준비한다.
+        Board board = new Board();
+        // 배열 각 항목의 값을 Lesson 객체에 담는다.
+        board.setNo(Integer.parseInt(data[0]));
+        board.setContents(data[1]);
+        board.setCreatedDate(Date.valueOf(data[2]));
+        board.setViewCount(Integer.parseInt(data[3]));
+        
+        // 수업 데이터를 담은 Lesson 객체를 lessonList에 추가한다.
+        boardList.add(board);
+      }
+      
+    } catch (FileNotFoundException e) {
+      // 읽을 파일을 찾지 못할 때
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("읽을 파일을 찾을 수 없습니다!");
+      
+    } catch (Exception e) {
+      // FileNotFoundException 외의 다른 예외를 여기에서 처리한다.
+      System.out.println("파일을 읽는 중에 오류가 발생했습니다!");
+      
+    } finally {
+      try {
+        scan.close();
+      } catch (Exception e) {
+        // close() 하다가 오류가 발생하면 무시한다.
+      }
+      try {
+        in.close();
+      } catch (Exception e) {
+        // close() 하다가 오류가 발생하면 무시한다.
+      }
+    }
+  }
+  
+  private static void saveBoardData() {
+    // File의 정보를 준비
+    File file = new File("./board.csv");
+    FileWriter out = null;
+    try {
+      // 파일 정보를 바탕으로 데이터를 출력해주는 객체 준비
+      out = new FileWriter(file);
+      
+      for (Board board : boardList) {
+        // 파일에 출력한다.
+        // => 수업 데이터를 한 문자열로 만들자
+        //    형식은 국제적으로 많이 사용하는 CSV(Comma-Separated Value) 형식으로 만들자.
+        String str = String.format("%d,%s,%s,%d\n", 
+            board.getNo(),
+            board.getContents(),
+            board.getCreatedDate(),
+            board.getViewCount());
+        out.write(str);
+      }
+    } catch (FileNotFoundException e) {
+      // 출력할 파일을 생성하지 못할 때
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("파일을 생성할 수 없습니다!");
+      
+    } catch (IOException e) {
+      // 파일에 데이터를 출력하다가 오류가 발생하면,
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("파일에 데이터를 출력하는 중에 오류 발생!");
+    } finally {
+      try {
+        if (out != null)
+          out.close();
+      } catch (Exception e) {
+        // close() 하다가 발생된 예외는 따로 처리할 게 없다.
+        // 그냥 빈 채로 둔다.
+      }
+    }
+  }
+  
+  private static void loadMemberData() {
+    // File의 정보를 준비
+    File file = new File("./member.csv");
+    
+    FileReader in = null;
+    Scanner scan = null;
+    
+    try {
+      // 파일 정보를 바탕으로 데이터를 읽어주는 객체 준비
+      in = new FileReader(file);
+      scan = new Scanner(in);
+      
+      while (scan.hasNextLine()) {
+        // 파일에서 한 줄 읽는다.
+        String line = scan.nextLine();
+        
+        // 문자열을 콤마로 분리한다. 분리된 데이터는 배열에 담겨 리턴된다.
+        String[] data = line.split(",");
+        
+        // 수업 데이터를 담을 Lesson 객체를 준비한다.
+        Member member = new Member();
+        // 배열 각 항목의 값을 Lesson 객체에 담는다.
+        member.setNo(Integer.parseInt(data[0]));
+        member.setName(data[1]);
+        member.setEmail(data[2]);
+        member.setPassword(Integer.parseInt(data[3]));
+        member.setPhoto(data[4]);
+        member.setPhoneNum(data[5]);
+        member.setRegisteredDate(Date.valueOf(data[6]));
+        
+        // 수업 데이터를 담은 Lesson 객체를 lessonList에 추가한다.
+        memberList.add(member);
+      }
+      
+    } catch (FileNotFoundException e) {
+      // 읽을 파일을 찾지 못할 때
+      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
+      // 계속 실행하게 하자!
+      System.out.println("읽을 파일을 찾을 수 없습니다!");
+      
+    } catch (Exception e) {
+      // FileNotFoundException 외의 다른 예외를 여기에서 처리한다.
+      System.out.println("파일을 읽는 중에 오류가 발생했습니다!");
+      
+    } finally {
+      try {
+        scan.close();
+      } catch (Exception e) {
+        // close() 하다가 오류가 발생하면 무시한다.
+      }
+      try {
+        in.close();
+      } catch (Exception e) {
+        // close() 하다가 오류가 발생하면 무시한다.
+      }
+    }
+  }
+  
+  private static void saveMemberData() {
+    // File의 정보를 준비
+    File file = new File("./member.csv");
+    FileWriter out = null;
+    try {
+      // 파일 정보를 바탕으로 데이터를 출력해주는 객체 준비
+      out = new FileWriter(file);
+      
+      for (Member member : memberList) {
+        // 파일에 출력한다.
+        // => 수업 데이터를 한 문자열로 만들자
+        //    형식은 국제적으로 많이 사용하는 CSV(Comma-Separated Value) 형식으로 만들자.
+        String str = String.format("%d,%s,%s,%d,%s,%s,%s\n", 
+            member.getNo(),
+            member.getName(),
+            member.getEmail(),
+            member.getPassword(),
+            member.getPhoto(),
+            member.getPhoneNum(),
+            member.getRegisteredDate()); 
         out.write(str);
       }
     } catch (FileNotFoundException e) {
