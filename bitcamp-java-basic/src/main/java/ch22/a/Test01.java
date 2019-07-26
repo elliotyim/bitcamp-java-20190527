@@ -14,12 +14,14 @@ public class Test01 {
     // => '.' 으로 표현한다.
     // => 이클립스 : 프로젝트 디렉토리를 가리킨다.
     // => 콘솔 : 현재 명령어를 실행하는 위치를 가리킨다.
+    // 
+    // ".."은 상위 폴더
     //
-    File dir = new File("../../teacher/java-basic");
+    File dir = new File("../bitcamp-java-application/src");
     System.out.println(dir.getName()); // 폴더명
     System.out.println(dir.getPath()); // 경로
     System.out.println(dir.getAbsolutePath()); // 절대 경로
-    System.out.println(dir.getCanonicalPath()); // 계산된 경로
+    System.out.println(dir.getCanonicalPath()); // ("../"도 계산된 경로)
 
     // 디렉토리가 존재하지 않는 경우 크기는 0이 나온다.
     System.out.println(dir.getTotalSpace()); // HDD 전체 용량

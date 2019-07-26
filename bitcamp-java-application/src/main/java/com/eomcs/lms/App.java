@@ -2,8 +2,6 @@
 // => 애플리케이션을 실행할 때 이 클래스를 실행한다.
 package com.eomcs.lms;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Date;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -51,10 +48,9 @@ public class App {
   static ArrayList<Lesson> lessonList = new ArrayList<>();
   static ArrayList<Member> memberList = new ArrayList<>();
   static ArrayList<Board> boardList = new ArrayList<>();
-  
-  public static void main(String[] args) {
+
+  public static void main(String[] args) throws Exception{
     
-    // 이전에 저장된 애플리케이션 데이터를 로딩한다.
     loadLessonData();
     loadBoardData();
     loadMemberData();
@@ -133,14 +129,12 @@ public class App {
         
       }
       System.out.println();
-    } // while
-    
-    // 애플리케이션의 실행을 종료하기 전에 데이터를 저장한다.
+    }
     saveLessonData();
     saveBoardData();
     saveMemberData();
   }
-  private static void printCommandHistory(Iterable<String> list) {
+  private static void printCommandHistory(Iterable<String> list) throws Exception {
     Iterator<String> iterator = list.iterator();
     int count = 0;
     while (iterator.hasNext()) {
@@ -160,32 +154,21 @@ public class App {
   
   @SuppressWarnings("unchecked")
   private static void loadLessonData() {
-    File file = new File("./lesson.ser");
+    File file = new File("./lesson.dat");
     
-    // 바이트 단위로 출력된 데이터를 읽을 객체를 준비한다.
     FileInputStream in = null;
     ObjectInputStream in2 = null;
     
     try {
-      // 파일 정보를 바탕으로 데이터를 읽어주는 객체 준비
       in = new FileInputStream(file);
-
-      // 바이트 배열을 읽어 원래 타입인 int나 String 등으로 변환해주는 도구를 
-      // FileInputStream에 붙인다.
       in2 = new ObjectInputStream(in);
       
       lessonList = (ArrayList<Lesson>) in2.readObject();
       
     } catch (FileNotFoundException e) {
-      // 읽을 파일을 찾지 못할 때
-      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
-      // 계속 실행하게 하자!
       System.out.println("읽을 파일을 찾을 수 없습니다!");
-      
     } catch (Exception e) {
-      // FileNotFoundException 외의 다른 예외를 여기에서 처리한다.
       System.out.println("파일을 읽는 중에 오류가 발생했습니다!");
-      
     } finally {
       try {in2.close();} catch (Exception e) {}
       try {in.close();} catch (Exception e) {}
@@ -193,26 +176,20 @@ public class App {
   }
   
   private static void saveLessonData() {
-    File file = new File("./lesson.ser");
-    
-    // 바이트 단위로 데이터를 다루기 위해 바이트 스트림 클래스를 준비한다.
+    File file = new File("./lesson.dat");
+
     FileOutputStream out = null;
     ObjectOutputStream out2 = null;
+    
     try {
       out = new FileOutputStream(file);
-      
-      // FileOutputStream은 바이트 또는 바이트 배열을 출력할 수 있다.
-      // 따라서 어떤 값을 출력하려면 byte 배열로 만들어야 한다.
-      // 자바는 이것을 도와주는 DataOutputStream 이라는 클래스를 제공하고 있다.
-      // 이 클래스를 FileOutputStream에 붙여서 사용하라!
       out2 = new ObjectOutputStream(out);
       
-      // 본격적으로 데이터를 출력하기 전에 몇 개의 데이터를 출력할 것인지 먼저 그 개수를 출력한다.
       out2.writeObject(lessonList);
       
     } catch (FileNotFoundException e) {
       System.out.println("파일을 생성할 수 없습니다!");
-      
+    
     } catch (IOException e) {
       System.out.println("파일에 데이터를 출력하는 중에 오류 발생!");
       
@@ -224,37 +201,31 @@ public class App {
   
   @SuppressWarnings("unchecked")
   private static void loadBoardData() {
-    // File의 정보를 준비
-    File file = new File("./board.ser");
+    File file = new File("./board.csv");
     
     FileInputStream in = null;
     ObjectInputStream in2 = null;
     
     try {
-      // 파일 정보를 바탕으로 데이터를 읽어주는 객체 준비
       in = new FileInputStream(file);
       in2 = new ObjectInputStream(in);
       
       boardList = (ArrayList<Board>) in2.readObject();
       
     } catch (FileNotFoundException e) {
-      // 읽을 파일을 찾지 못할 때
-      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
-      // 계속 실행하게 하자!
       System.out.println("읽을 파일을 찾을 수 없습니다!");
-      
+    
     } catch (Exception e) {
-      // FileNotFoundException 외의 다른 예외를 여기에서 처리한다.
       System.out.println("파일을 읽는 중에 오류가 발생했습니다!");
-      
     } finally {
       try {in2.close();} catch (Exception e) {}
       try {in.close();} catch (Exception e) {}
     }
+    
   }
-  
+
   private static void saveBoardData() {
-    File file = new File("./board.ser");
+    File file = new File("./board.dat");
     
     FileOutputStream out = null;
     ObjectOutputStream out2 = null;
@@ -267,13 +238,8 @@ public class App {
       
     } catch (FileNotFoundException e) {
       System.out.println("파일을 생성할 수 없습니다!");
-      
     } catch (IOException e) {
-      // 파일에 데이터를 출력하다가 오류가 발생하면,
-      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
-      // 계속 실행하게 하자!
       System.out.println("파일에 데이터를 출력하는 중에 오류 발생!");
-      
     } finally {
       try {out2.close();} catch (Exception e) {}
       try {out.close();} catch (Exception e) {}
@@ -282,17 +248,12 @@ public class App {
   
   @SuppressWarnings("unchecked")
   private static void loadMemberData() {
-    // File의 정보를 준비
-    File file = new File("./member.ser");
-    
+    File file = new File("./member.scv");
     FileInputStream in = null;
     ObjectInputStream in2 = null;
     
     try {
-      // 파일 정보를 바탕으로 데이터를 읽어주는 객체 준비
       in = new FileInputStream(file);
-      
-      // 바이트 배열을 읽어 객체로 복원해 주는 객체 준비
       in2 = new ObjectInputStream(in);
       
       memberList = (ArrayList<Member>) in2.readObject();
@@ -314,36 +275,29 @@ public class App {
   }
   
   private static void saveMemberData() {
-    // File의 정보를 준비
-    File file = new File("./member.ser");
+    File file = new File("./member.csv");
     
     FileOutputStream out = null;
     ObjectOutputStream out2 = null;
+    
     try {
       out = new FileOutputStream(file);
-      
-      // 객체를 통쨰로 바이트 배열로 변환해주는 출력 스트림 준비하기
       out2 = new ObjectOutputStream(out);
       
       out2.writeObject(memberList);
       
     } catch (FileNotFoundException e) {
-      // 출력할 파일을 생성하지 못할 때
-      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
-      // 계속 실행하게 하자!
       System.out.println("파일을 생성할 수 없습니다!");
-      
     } catch (IOException e) {
-      // 파일에 데이터를 출력하다가 오류가 발생하면,
-      // JVM을 멈추지 말고 간단히 오류 안내 문구를 출력한 다음에
-      // 계속 실행하게 하자!
       System.out.println("파일에 데이터를 출력하는 중에 오류 발생!");
-      e.printStackTrace();
-      
     } finally {
-      try {out2.close();} catch (Exception e) {}
-      try {out.close();} catch (Exception e) {}
+      try {
+        if (out != null)
+          out.close();
+        
+      }catch (Exception e) {
+        
+      }
     }
   }
-  
 }

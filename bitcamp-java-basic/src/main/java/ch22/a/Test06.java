@@ -14,7 +14,7 @@ public class Test06 {
     } else {
       System.out.println("파일을 삭제하지 못함.");
     }
-  }    
+  }
 }
 
 
