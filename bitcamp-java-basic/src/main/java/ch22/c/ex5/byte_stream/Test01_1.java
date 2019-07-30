@@ -1,6 +1,7 @@
-// 버퍼없이 대량의 primitive 타입의 값을 출력하기 
-package ch22.c.ex4;
+// Java에서 제공하는 데코레이터 사용하기 : 버퍼없이 대량의 primitive 타입의 값을 출력하기 
+package ch22.c.ex5.byte_stream;
 
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 
 public class Test01_1 {
@@ -10,6 +11,7 @@ public class Test01_1 {
     FileOutputStream other = new FileOutputStream("temp/data.bin");
 
     // 파일을 출력하는 객체에 primitive 타입의 값을 출력하는 데코레이터 객체를 붙인다.
+    // DataOutputStream은 중간에서 가공하는 역할을 한다.
     DataOutputStream out = new DataOutputStream(other);
     
     short s = 0x1122;

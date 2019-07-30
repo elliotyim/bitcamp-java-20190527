@@ -1,13 +1,14 @@
 // try-with-resources 문법 : 사용 전
 package ch21.f;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Scanner;
 
 public class Test01 {
   
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     
     // 자바에서 제공하는 자원들 중에서는 쓰고 난 다음에 해제시켜야 하는 자원이 있다.
     // 보통 파일이나 네트워크 입출력, 데이터베이터 연결과 같은 자원이다.
@@ -29,7 +30,12 @@ public class Test01 {
       
     } catch (Exception e) {
       
+      // 에러메시지를 메모리에 출력하고 싶으면 StringWriter에 PrintWriter를 연결하여 사용하고
       StringWriter out = new StringWriter();
+      
+      // 에러 메시지를 로그로 만들어서 출력하고 싶다고 하면 FileWriter에 연결하여 사용한다.
+      //FileWriter out = new FileWriter("error.log");
+      
       PrintWriter out2 = new PrintWriter(out);
       
       // 상세 오류 정보를 String 으로 받기
