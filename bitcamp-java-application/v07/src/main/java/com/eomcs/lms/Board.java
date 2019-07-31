@@ -7,5 +7,4 @@ public class Board {
   String contents;
   Date createdDate;
   int viewCount;
-  
 }

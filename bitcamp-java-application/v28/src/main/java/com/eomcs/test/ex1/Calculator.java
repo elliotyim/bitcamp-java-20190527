@@ -10,5 +10,4 @@ public class Calculator {
   public static void minus(int value) {
     result -= value;
   }
-  
 }

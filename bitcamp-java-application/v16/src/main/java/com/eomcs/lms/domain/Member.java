@@ -6,9 +6,9 @@ public class Member {
   private int no;
   private String name;
   private String email;
-  private int password;
+  private String password;
+  private String tel;
   private String photo;
-  private String phoneNum;
   private Date registeredDate;
   
   public int getNo() {
@@ -29,23 +29,23 @@ public class Member {
   public void setEmail(String email) {
     this.email = email;
   }
-  public int getPassword() {
+  public String getPassword() {
     return password;
   }
-  public void setPassword(int password) {
+  public void setPassword(String password) {
     this.password = password;
+  }
+  public String getTel() {
+    return tel;
+  }
+  public void setTel(String tel) {
+    this.tel = tel;
   }
   public String getPhoto() {
     return photo;
   }
   public void setPhoto(String photo) {
     this.photo = photo;
-  }
-  public String getPhoneNum() {
-    return phoneNum;
-  }
-  public void setPhoneNum(String phoneNum) {
-    this.phoneNum = phoneNum;
   }
   public Date getRegisteredDate() {
     return registeredDate;

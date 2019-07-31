@@ -8,7 +8,7 @@ public interface List<E> {
   // 기능의 구현은 클래스에서 할 것이다.
   // => 규칙은 무조건 공개되어야 한다. 따라서 public이다.
   // => 규칙에 정의된 메서드는 클래스에서 구현해야 한다. 그래서 abstract이다.
-  // => public, abstract modifier는 생략할 수 있다.
+  // => public, abstract modifier는 생략할 수 있다. 
   
   /*public abstract*/ boolean add(E value);
   /*public abstract*/ E get(int index);
@@ -19,3 +19,9 @@ public interface List<E> {
   /*public abstract*/ int size();
   /*public abstract*/ void clear();
 }
+
+
+
+
+
+

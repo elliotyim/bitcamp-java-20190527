@@ -8,23 +8,22 @@ public class BoardHandler {
   static int boardsSize = 0;
   static Scanner keyScan;
   
-  static void addBoard() {
-    Board board = new Board();
-    board.no = Input.getIntValue("번호? ");
-    board.contents = Input.getStringValue("내용? ");
-    board.createdDate = new Date(System.currentTimeMillis());
-    board.viewCount = 0;
-    
-    boards[boardsSize++] = board;
-    
-    System.out.println("저장하였습니다.");
-  }
-  
   static void listBoard() {
     for (int i = 0; i < boardsSize; i++) {
       Board board = boards[i];
-      System.out.printf("%s, %s\t, %s, %s\n",
+      System.out.printf("%s, %s, %s, %s\n", 
           board.no, board.contents, board.createdDate, board.viewCount);
     }
+  }
+
+  static void addBoard() {
+    Board board = new Board();
+    
+    board.no = Input.getIntValue("번호? ");
+    board.contents = Input.getStringValue("내용? ");
+    board.createdDate = new Date(System.currentTimeMillis()); 
+    
+    boards[boardsSize++] = board;
+    System.out.println("저장하였습니다.");
   }
 }

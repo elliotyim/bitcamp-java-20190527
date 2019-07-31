@@ -7,10 +7,10 @@ public class LinkedListTest {
     list.add("aaa");
     list.add("bbb");
     list.add("ccc");
-    list.add("ddd"); //3
+    list.add("ddd");
     list.add("eee");
     list.add("fff");
-    list.add("ggg"); //6
+    list.add("ggg");
     
     list.set(2, "xxx"); // "ccc" -> "xxx"
     
@@ -26,15 +26,12 @@ public class LinkedListTest {
     list.add("nono");
     list.add("hul");
     
-//    list.clear();
+    //list.clear();
     
-    String[] arr = list.toArray( new String[] {});
-    
-    for (Object obj : arr) {
+    String[] arr = list.toArray(new String[] {});
+    for (String obj : arr) {
       System.out.println(obj);
     }
-    
-
   }
 
 }

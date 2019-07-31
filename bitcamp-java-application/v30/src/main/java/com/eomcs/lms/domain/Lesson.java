@@ -57,4 +57,13 @@ public class Lesson implements Serializable {
   public void setDayHours(int dayHours) {
     this.dayHours = dayHours;
   }
+  
+  
 }
+
+
+
+
+
+
+

@@ -6,11 +6,12 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
+  
   static Scanner keyScan;
-
+  
   static Lesson[] lessons = new Lesson[100];
   static int lessonsSize = 0;
-
+  
   static Member[] members = new Member[100];
   static int membersSize = 0;
 
@@ -22,25 +23,34 @@ public class App {
     keyScan = new Scanner(keyboard);
     
     while (true) {
+      
       String command = prompt();
       
       if (command.equals("quit")) {
         break;
+        
       } else if (command.equals("/lesson/add")) {
-        addLesson(); //addLesson() 메서드 블록에 묶어 놓은 코드를 실행한다.
+        addLesson(); // addLesson() 메서드 블록에 묶어 놓은 코드를 실행한다.
+        
       } else if (command.equals("/lesson/list")) {
         listLesson();
+        
       } else if (command.equals("/member/add")) {
         addMember();
-      }else if (command.equals("/member/list")) {
+      
+      } else if (command.equals("/member/list")) {
         listMember();
-      }else if(command.equals("/board/add")) {
+        
+      } else if (command.equals("/board/add")) {
         addBoard();
-      }else if (command.equals("/board/list")) {
+        
+      } else if (command.equals("/board/list")) {
         listBoard();
-      }else {
+        
+      } else {
         System.out.println("해당 명령을 지원하지 않습니다!");
       }
+      
       System.out.println();
     }
   }
@@ -49,20 +59,62 @@ public class App {
     System.out.print("명령> ");
     return keyScan.nextLine();
   }
+
+  static void listBoard() {
+    for (int i = 0; i < boardsSize; i++) {
+      Board board = boards[i];
+      System.out.printf("%s, %s, %s, %s\n", 
+          board.no, board.contents, board.createdDate, board.viewCount);
+    }
+  }
+
+  static void addBoard() {
+    Board board = new Board();
+    
+    board.no = getIntValue("번호? ");
+    board.contents = getStringValue("내용? ");
+    board.createdDate = new Date(System.currentTimeMillis()); 
+    
+    boards[boardsSize++] = board;
+    System.out.println("저장하였습니다.");
+  }
+
+  static void listMember() {
+    for (int i = 0; i < membersSize; i++) {
+      Member member = members[i];
+      System.out.printf("%s, %s, %s, %s, %s\n", 
+          member.no, member.name, member.email, 
+          member.tel, member.registeredDate);
+    }
+  }
+
+  static void addMember() {
+    Member member = new Member();
+    member.no = getIntValue("번호? ");
+    member.name = getStringValue("이름? ");
+    member.email = getStringValue("이메일? ");
+    member.password = getStringValue("암호? ");
+    member.photo = getStringValue("사진? ");
+    member.tel = getStringValue("전화? ");
+    member.registeredDate = new Date(System.currentTimeMillis()); 
+      
+    members[membersSize++] = member;
+    System.out.println("저장하였습니다.");
+  }
   
   static void addLesson() {
- // 수업 데이터를 저장할 메모리를 Lesson 설계도에 따라 만든다.
+    // 수업 데이터를 저장할 메모리를 Lesson 설계도에 따라 만든다.
     Lesson lesson = new Lesson();
-
+    
     // 사용자가 입력한 값을 Lesson 인스턴스의 각 변수에 저장한다.
     lesson.no = getIntValue("번호? ");
     lesson.title = getStringValue("수업명? ");
     lesson.contents = getStringValue("설명? ");
     lesson.startDate = getDateValue("시작일? ");
     lesson.endDate = getDateValue("종료일? ");
-    lesson.totalHours = getIntValue("총 수업시간? ");
-    lesson.dayHours = getIntValue("일 수업시간? ");
-
+    lesson.totalHours = getIntValue("총수업시간? ");
+    lesson.dayHours = getIntValue("일수업시간? ");
+    
     // 수업 데이터를 저장하고 있는 인스턴스의 주소를 레퍼런스 배열에 저장한다.
     lessons[lessonsSize++] = lesson;
     
@@ -71,57 +123,14 @@ public class App {
 
   static void listLesson() {
     for (int i = 0; i < lessonsSize; i++) {
-      // 레퍼런스 배열에서 한 개의 인스턴스 주소를 꺼낸다.
       Lesson lesson = lessons[i];
-      
-      // 그 인스턴스 주소로 찾아가서 인스턴스의 각 변수 값을 꺼내 출력한다.
-      System.out.printf("%s, %s, %s ~ %s, %s\n", lesson.no, lesson.title, lesson.startDate,
-          lesson.endDate, lesson.totalHours);
+      System.out.printf("%s, %s, %s ~ %s, %s\n", 
+          lesson.no, lesson.title, 
+          lesson.startDate, lesson.endDate, lesson.totalHours);
     }
   }
   
-  static void addMember() {
-    Member member = new Member();
-    member.no = getIntValue("번호? ");
-    member.name = getStringValue("이름? ");
-    member.email = getStringValue("이메일? ");
-    member.password = getIntValue("암호? ");
-    member.photo = getStringValue("사진? ");
-    member.phoneNum = getStringValue("전화? ");
-    member.registeredDate = Date.valueOf("2019-01-01");
-    
-    members[membersSize++] = member;
-  }
-  
-  static void listMember() {
-    for (int i = 0; i < membersSize; i++) {
-      Member member = members[i];
-      System.out.printf("%s, %s , %s\t, %s\t, %s\n",
-          member.no, member.name, member.email, member.phoneNum, member.registeredDate);
-    }
-  }
-  
-  static void addBoard() {
-    Board board = new Board();
-    board.no = getIntValue("번호? ");
-    board.contents = getStringValue("내용? ");
-    board.createdDate = new Date(System.currentTimeMillis());
-    board.viewCount = 0;
-    
-    boards[boardsSize++] = board;
-    
-    System.out.println("저장하였습니다.");
-  }
-  
-  static void listBoard() {
-    for (int i = 0; i < boardsSize; i++) {
-      Board board = boards[i];
-      System.out.printf("%s, %s\t, %s, %s\n",
-          board.no, board.contents, board.createdDate, board.viewCount);
-    }
-  }
-
-  private static int getIntValue(String message){
+  private static int getIntValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -131,13 +140,8 @@ public class App {
       }
     }
   }
-
-  private static String getStringValue(String message){
-    System.out.print(message);
-    return keyScan.nextLine();
-  }
   
-  private static Date getDateValue(String message){
+  private static Date getDateValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -148,4 +152,19 @@ public class App {
     }
   }
   
+  private static String getStringValue(String message) {
+    System.out.print(message);
+    return keyScan.nextLine();
+  }
+  
 }
+
+
+
+
+
+
+
+
+
+

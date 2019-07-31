@@ -9,11 +9,11 @@ public class LessonDetailCommand implements Command {
   private List<Lesson> list;
   private Input input;
   
-  public LessonDetailCommand (Input input, List<Lesson> list) {
+  public LessonDetailCommand(Input input, List<Lesson> list) {
     this.input = input;
     this.list = list;
   }
-  
+
   @Override
   public void execute() {
     int no = input.getIntValue("번호? ");
@@ -29,7 +29,7 @@ public class LessonDetailCommand implements Command {
     }
     
     if (lesson == null) {
-      System.out.println("해당 번호의 수업이 없습니다!");
+      System.out.println("해당 번호의 데이터가 없습니다!");
       return;
     }
     
@@ -39,4 +39,17 @@ public class LessonDetailCommand implements Command {
     System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
     System.out.printf("일수업시간: %d\n", lesson.getDayHours());
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,11 +13,10 @@ public class ArrayList {
   }
   
   public ArrayList(int initialCapacity) {
-    if (initialCapacity < 50 || initialCapacity > 10000) {
+    if (initialCapacity < 50 || initialCapacity > 10000)
       list = new Object[DEFAULT_CAPACITY];
-    }else {
+    else
       list = new Object[initialCapacity];
-    }
   }
   
   public void add(Object obj) {
@@ -28,7 +27,17 @@ public class ArrayList {
     }
     this.list[this.size++] = obj;
   }
+  
   public Object[] toArray() {
     return Arrays.copyOf(this.list, this.size);
   }
 }
+
+
+
+
+
+
+
+
+

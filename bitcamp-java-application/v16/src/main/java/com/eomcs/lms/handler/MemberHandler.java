@@ -12,25 +12,27 @@ public class MemberHandler {
     this.input = input;
   }
   
+  public void listMember() {
+    Member[] members = memberList.toArray();
+    for (Member member : members) {
+      System.out.printf("%s, %s, %s, %s, %s\n", 
+          member.getNo(), member.getName(), member.getEmail(), 
+          member.getTel(), member.getRegisteredDate());
+    }
+  }
+
   public void addMember() {
     Member member = new Member();
     member.setNo(input.getIntValue("번호? "));
     member.setName(input.getStringValue("이름? "));
     member.setEmail(input.getStringValue("이메일? "));
-    member.setPassword(input.getIntValue("암호? "));
+    member.setPassword(input.getStringValue("암호? "));
     member.setPhoto(input.getStringValue("사진? "));
-    member.setPhoneNum(input.getStringValue("전화? "));
-    member.setRegisteredDate(new Date(System.currentTimeMillis()));
-    
+    member.setTel(input.getStringValue("전화? "));
+    member.setRegisteredDate(new Date(System.currentTimeMillis())); 
+      
     memberList.add(member);
-  }
-  
-  public void listMember() {
-    Member[] members = memberList.toArray();
-    for (Member member : members) {
-      System.out.printf("%s, %s , %s\t, %s\t, %s\n",
-          member.getNo(), member.getName(), member.getEmail(), member.getPhoneNum(),
-          member.getRegisteredDate());
-    }
+    
+    System.out.println("저장하였습니다.");
   }
 }

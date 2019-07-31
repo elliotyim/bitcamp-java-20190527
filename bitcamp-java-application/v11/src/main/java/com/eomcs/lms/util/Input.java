@@ -4,8 +4,10 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class Input {
+  
   public static Scanner keyScan;
-  public static int getIntValue(String message){
+  
+  public static int getIntValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -15,13 +17,8 @@ public class Input {
       }
     }
   }
-
-  public static String getStringValue(String message){
-    System.out.print(message);
-    return keyScan.nextLine();
-  }
   
-  public static Date getDateValue(String message){
+  public static Date getDateValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -30,5 +27,10 @@ public class Input {
         System.out.println("2019-07-05 형식으로 입력하세요.");
       }
     }
+  }
+  
+  public static String getStringValue(String message) {
+    System.out.print(message);
+    return keyScan.nextLine();
   }
 }

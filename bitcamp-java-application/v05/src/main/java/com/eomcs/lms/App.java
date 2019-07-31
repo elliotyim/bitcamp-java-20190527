@@ -2,24 +2,25 @@
 // => 애플리케이션을 실행할 때 이 클래스를 실행한다.
 package com.eomcs.lms;
 
-import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
+  
   static Scanner keyScan;
   
   public static void main(String[] args) {
     java.io.InputStream keyboard = System.in;
     keyScan = new Scanner(keyboard);
     
+    
     int no = getIntValue("번호? ");
     String lectureName = getStringValue("수업명? ");
     String description = getStringValue("설명? ");
-    Date startDate = getDateValue("시작일? ");
-    Date endDate = getDateValue("종료일? ");
-    int totalHours = getIntValue("총 수업시간? ");
-    int dayHours = getIntValue("일 수업시간? ");
-    
+    java.sql.Date startDate = getDateValue("시작일? ");
+    java.sql.Date endDate = getDateValue("종료일? ");
+    int totalHours = getIntValue("총수업시간? ");
+    int dayHours = getIntValue("일수업시간? ");
+
     System.out.println();
     
     System.out.printf("번호: %s\n", no);
@@ -31,7 +32,7 @@ public class App {
     System.out.printf("일수업시간: %s\n", dayHours);
   }
   
-  private static int getIntValue(String message){
+  private static int getIntValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -41,20 +42,30 @@ public class App {
       }
     }
   }
-
-  private static String getStringValue(String message){
-    System.out.print(message);
-    return keyScan.nextLine();
-  }
   
-  private static Date getDateValue(String message){
+  private static java.sql.Date getDateValue(String message) {
     while (true) {
       try {
         System.out.print(message);
-        return Date.valueOf(keyScan.nextLine());
+        return java.sql.Date.valueOf(keyScan.nextLine());
       } catch (IllegalArgumentException e) {
         System.out.println("2019-07-05 형식으로 입력하세요.");
       }
     }
   }
+  
+  private static String getStringValue(String message) {
+    System.out.print(message);
+    return keyScan.nextLine();
+  }
 }
+
+
+
+
+
+
+
+
+
+

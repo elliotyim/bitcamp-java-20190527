@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
+  
   static Scanner keyScan;
   
   public static void main(String[] args) {
@@ -20,32 +21,33 @@ public class App {
     int[] totalHours = new int[100];
     int[] dayHours = new int[100];
     
+    
     int i = 0;
-    for ( ; i<no.length; i++) {
+    for ( ; i < no.length; i++) {
       no[i] = getIntValue("번호? ");
       lectureName[i] = getStringValue("수업명? ");
       description[i] = getStringValue("설명? ");
       startDate[i] = getDateValue("시작일? ");
       endDate[i] = getDateValue("종료일? ");
-      totalHours[i] = getIntValue("총 수업시간? ");
-      dayHours[i] = getIntValue("일 수업시간? ");
+      totalHours[i] = getIntValue("총수업시간? ");
+      dayHours[i] = getIntValue("일수업시간? ");
       
-      System.out.print("계속 입력하시겠습니까? (Y/N)");
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String response = keyScan.nextLine();
-      if (response.equalsIgnoreCase("N")) {
+      
+      if (response.equals("n"))
         break;
-      }
     }
     
     System.out.println();
     
     for (int i2 = 0; i2 <= i; i2++) {
-      System.out.printf("%s, %s, %s ~ %s, %s\n",
+      System.out.printf("%s, %s, %s ~ %s, %s\n", 
           no[i2], lectureName[i2], startDate[i2], endDate[i2], totalHours[i2]);
     }
   }
   
-  private static int getIntValue(String message){
+  private static int getIntValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -55,13 +57,8 @@ public class App {
       }
     }
   }
-
-  private static String getStringValue(String message){
-    System.out.print(message);
-    return keyScan.nextLine();
-  }
   
-  private static Date getDateValue(String message){
+  private static Date getDateValue(String message) {
     while (true) {
       try {
         System.out.print(message);
@@ -71,4 +68,19 @@ public class App {
       }
     }
   }
+  
+  private static String getStringValue(String message) {
+    System.out.print(message);
+    return keyScan.nextLine();
+  }
 }
+
+
+
+
+
+
+
+
+
+

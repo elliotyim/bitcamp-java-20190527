@@ -1,24 +1,31 @@
 package com.eomcs.lms;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 public class App3 {
 
   public static void main(String[] args) {
-    
-    java.io.InputStream keyboard = System.in;
-    Scanner keyScan = new Scanner(keyboard);
-    
+    Scanner keyboard = new Scanner(System.in);
+
     System.out.print("번호? ");
-    String no = keyScan.nextLine();
+    int no = Integer.parseInt(keyboard.nextLine());
     
     System.out.print("내용? ");
-    String content = keyScan.nextLine();
+    String contents = keyboard.nextLine();
     
-    System.out.println();
+    Date createdDate = new Date(System.currentTimeMillis()); 
     
-    System.out.println("번호: " + no);
-    System.out.println("내용: " + content);
+    int viewCount = 0;
+    
+    // 사용후 스캐너 객체의 자원을 해제한다.
+    keyboard.close();
+    
+    System.out.println(); // 빈 줄 출력
+    
+    System.out.printf("번호: %d\n", no);
+    System.out.printf("내용: %s\n", contents);
+    System.out.printf("작성일: %s\n", createdDate);
+    System.out.printf("조회수: %d\n", viewCount);
   }
-
 }

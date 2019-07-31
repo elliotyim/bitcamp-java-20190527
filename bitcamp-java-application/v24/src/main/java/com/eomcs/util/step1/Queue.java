@@ -13,17 +13,17 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
     Queue<E> temp = new Queue<>();
     for (int i = 0; i < size(); i++) {
       // => 현재 큐에서 값을 꺼내 새 큐의 새 노드에 넣는다.
-      //    즉 새 큐는 값을 넣을 때 마다 새 노드를 생성하기 때문에
+      //    즉 새 큐는 값을 넣을 때 마다 새 노드를 생성하기 때문에 
       //    현재 큐의 노드에는 영향을 끼치지 않는다.
       temp.offer(get(i));
     }
     return temp;
   }
-
+  
   public void offer(E value) {
     add(value);
   }
-
+  
   public E poll() {
     return remove(0);
   }
@@ -32,8 +32,17 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
     return size() == 0;
   }
   
-  // 큐에 데이터를 꺼내줄 Iterator를 제공한다.
+  // 큐의 데이터를 꺼내줄 Iterator를 제공한다.
   public Iterator<E> createIterator() {
     return new QueueIterator<E>(this);
   }
 }
+
+
+
+
+
+
+
+
+

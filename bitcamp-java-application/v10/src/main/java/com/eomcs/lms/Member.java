@@ -6,8 +6,8 @@ public class Member {
   int no;
   String name;
   String email;
-  int password;
+  String password;
+  String tel;
   String photo;
-  String phoneNum;
   Date registeredDate;
 }

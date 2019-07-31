@@ -9,24 +9,24 @@ public class LessonHandler {
   private ArrayList<Lesson> lessonList = new ArrayList<>();
   private Input input;
   
-  public LessonHandler (Input input) {
+  public LessonHandler(Input input) {
     this.input = input;
   }
   
   public void addLesson() {
- // 수업 데이터를 저장할 메모리를 Lesson 설계도에 따라 만든다.
+    // 수업 데이터를 저장할 메모리를 Lesson 설계도에 따라 만든다.
     Lesson lesson = new Lesson();
-
+    
     // 사용자가 입력한 값을 Lesson 인스턴스의 각 변수에 저장한다.
     lesson.setNo(input.getIntValue("번호? "));
     lesson.setTitle(input.getStringValue("수업명? "));
     lesson.setContents(input.getStringValue("설명? "));
     lesson.setStartDate(input.getDateValue("시작일? "));
     lesson.setEndDate(input.getDateValue("종료일? "));
-    lesson.setTotalHours(input.getIntValue("총 수업시간? "));
-    lesson.setDayHours(input.getIntValue("일 수업시간? "));
-
-    // LessonHandler에서 직접 데이터를 보관하지 않고
+    lesson.setTotalHours(input.getIntValue("총수업시간? "));
+    lesson.setDayHours(input.getIntValue("일수업시간? "));
+    
+    // LessonHandler에서 직접 데이터를 보관하지 않고 
     // LessonList에게 전달한다.
     lessonList.add(lesson);
     
@@ -34,10 +34,10 @@ public class LessonHandler {
   }
 
   public void listLesson() {
-    
     Lesson[] lessons = lessonList.toArray(new Lesson[] {});
     for (Lesson lesson : lessons) {
-      System.out.printf("%s, %s, %s ~ %s, %s\n", lesson.getNo(), lesson.getTitle(),
+      System.out.printf("%s, %s, %s ~ %s, %s\n", 
+          lesson.getNo(), lesson.getTitle(), 
           lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
     }
   }
@@ -56,7 +56,7 @@ public class LessonHandler {
     }
     
     if (lesson == null) {
-      System.out.println("해당 번호의 수업이 없습니다!");
+      System.out.println("해당 번호의 데이터가 없습니다!");
       return;
     }
     
@@ -81,7 +81,7 @@ public class LessonHandler {
     }
     
     if (lesson == null) {
-      System.out.println("해당 번호의 수업이 없습니다!");
+      System.out.println("해당 번호의 데이터가 없습니다!");
       return;
     }
     
@@ -103,17 +103,18 @@ public class LessonHandler {
         input.getDateValue("종료일(" + lesson.getEndDate() + ")? "));
     
     lesson.setTotalHours(
-        input.getIntValue("총 수업시간(" + lesson.getTotalHours() + ")? "));
+        input.getIntValue("총수업시간(" + lesson.getTotalHours() + ")? "));
     
     lesson.setDayHours(
-        input.getIntValue("일 수업시간(" + lesson.getDayHours() + ")? "));
+        input.getIntValue("일수업시간(" + lesson.getDayHours() + ")? "));
     
-    System.out.println("데이터를 변경 하였습니다.");
+    System.out.println("데이터를 변경하였습니다.");
   }
 
   public void deleteLesson() {
     int no = input.getIntValue("번호? ");
     
+    // 사용자가 입력한 번호를 가지고 목록에서 그 번호에 해당하는 Lesson 객체를 찾는다.
     for (int i = 0; i < lessonList.size(); i++) {
       Lesson temp = lessonList.get(i);
       if (temp.getNo() == no) {
@@ -123,7 +124,22 @@ public class LessonHandler {
       }
     }
     
-    System.out.println("해당 번호의 데이터가 없습니다.");
+    System.out.println("해당 번호의 데이터가 없습니다!");
     
   }
+  
+  
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+

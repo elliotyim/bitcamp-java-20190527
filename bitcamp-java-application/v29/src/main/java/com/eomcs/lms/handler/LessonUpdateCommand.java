@@ -4,16 +4,16 @@ import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Input;
 
-public class LessonUpdateCommand implements Command{
+public class LessonUpdateCommand implements Command {
   
   private List<Lesson> list;
   private Input input;
   
-  public LessonUpdateCommand (Input input, List<Lesson> list) {
+  public LessonUpdateCommand(Input input, List<Lesson> list) {
     this.input = input;
     this.list = list;
   }
-  
+
   @Override
   public void execute() {
     int no = input.getIntValue("번호? ");
@@ -29,7 +29,7 @@ public class LessonUpdateCommand implements Command{
     }
     
     if (lesson == null) {
-      System.out.println("해당 번호의 수업이 없습니다!");
+      System.out.println("해당 번호의 데이터가 없습니다!");
       return;
     }
     
@@ -51,11 +51,24 @@ public class LessonUpdateCommand implements Command{
         input.getDateValue("종료일(" + lesson.getEndDate() + ")? "));
     
     lesson.setTotalHours(
-        input.getIntValue("총 수업시간(" + lesson.getTotalHours() + ")? "));
+        input.getIntValue("총수업시간(" + lesson.getTotalHours() + ")? "));
     
     lesson.setDayHours(
-        input.getIntValue("일 수업시간(" + lesson.getDayHours() + ")? "));
+        input.getIntValue("일수업시간(" + lesson.getDayHours() + ")? "));
     
-    System.out.println("데이터를 변경 하였습니다.");
+    System.out.println("데이터를 변경하였습니다.");
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
