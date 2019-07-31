@@ -1,4 +1,4 @@
-// v3(임꺽정, 5월19일에 추가함): 한 줄 주석 세기
+// v3(임꺽정, 5월17일에 추가함): 한 줄 주석 세기
 package design_pattern.observer2.after.v3;
 
 import java.io.FileReader;
@@ -28,6 +28,7 @@ public class Test {
       l1.displayResult();
       l2.displayResult();
       l3.displayResult();
+      
     } catch (Exception e) {
       System.out.println("실행 중 오류 발생!");
     }

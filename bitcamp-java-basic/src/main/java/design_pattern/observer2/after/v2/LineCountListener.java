@@ -1,8 +1,8 @@
 package design_pattern.observer2.after.v2;
 
-// TextAnalyzer로부터 보고를 받아서
+// TextAnalyzer로부터 보고를 받아서 
 // 텍스트의 줄 수를 세는 관찰자이다.
-public class LineCountListener implements CharacterListener{
+public class LineCountListener implements CharacterListener {
   int lines = 0;
   boolean isEmpty = true;
   
@@ -11,14 +11,14 @@ public class LineCountListener implements CharacterListener{
     if (ch == '\n') {
       lines++;
       isEmpty = true;
+      
     } else if (ch == -1) {
       if (!isEmpty)
         lines++;
+      
     } else {
       isEmpty = false;
     }
-    
-    
   }
 
   @Override

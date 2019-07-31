@@ -24,6 +24,7 @@ public class Test {
       // 분석 작업이 끝났으면 각 리스너에게 결과를 출력하라고 명령한다.
       l1.displayResult();
       l2.displayResult();
+      
     } catch (Exception e) {
       System.out.println("실행 중 오류 발생!");
     }

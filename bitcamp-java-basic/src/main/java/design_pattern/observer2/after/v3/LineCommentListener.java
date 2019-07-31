@@ -29,8 +29,7 @@ public class LineCommentListener implements CharacterListener {
 
   @Override
   public void displayResult() {
-    System.out.printf("총 한 줄 주석 수: %d\n", lines);
-    
+    System.out.printf("한 줄 주석 개수: %d\n", lines);
   }
   
 }

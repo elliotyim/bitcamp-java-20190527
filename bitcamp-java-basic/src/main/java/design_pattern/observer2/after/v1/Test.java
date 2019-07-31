@@ -6,7 +6,7 @@ import java.io.FileReader;
 public class Test {
 
   public static void main(String[] args) {
-    try (FileReader in = new FileReader("build.gradle");) {
+    try (FileReader in = new FileReader("build.gradle")) {
       TextAnalyzer analyzer = new TextAnalyzer(in);
       
       // 분석기로부터 보고를 받을 리스너(=observer)를 추가한다.
@@ -20,6 +20,8 @@ public class Test {
       
       // 분석 작업이 끝났으면 각 리스너에게 결과를 출력하라고 명령한다.
       l1.displayResult();
+      
+      
     } catch (Exception e) {
       System.out.println("실행 중 오류 발생!");
     }

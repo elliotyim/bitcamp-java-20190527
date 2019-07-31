@@ -1,6 +1,6 @@
 package design_pattern.observer2.after.v3;
 
-public class CharacterCountListener implements CharacterListener{
+public class CharacterCountListener implements CharacterListener {
 
   int count = 0;
   
@@ -9,10 +9,9 @@ public class CharacterCountListener implements CharacterListener{
     if (ch != -1)
       count++;
   }
-
+  
   @Override
   public void displayResult() {
     System.out.printf("총 문자 개수: %d\n", count);
   }
-
 }
