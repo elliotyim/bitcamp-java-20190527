@@ -45,7 +45,7 @@ public class App {
   
   // App 객체가 사용할 값을 모아두는 바구니 준비
   // 객체를 Java 프로그래밍 언어에서는 상징적인 의미를 담아서 bean이라고도 한다.
-  Map<String, Object> beanContainer = new HashMap<>();
+  Map<String,Object> beanContainer = new HashMap<>();
   
   Scanner keyScan;
 
