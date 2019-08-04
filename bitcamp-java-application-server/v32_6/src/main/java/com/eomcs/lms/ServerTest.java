@@ -94,6 +94,10 @@ public class ServerTest {
         error();
       }
       
+    } catch (RequestException e) {
+      // 서버에서 요청 처리에 실패했다면
+      // 서버가 보낸 이유를 받는다.
+      System.out.printf("오류: %s\n", in.readUTF());
     } catch (IOException e) {
       // 예외가 발생하면 일단 어디에서 예외가 발생했는지 확인하기 위해 호출 정보를 모두 출력한다.
       e.printStackTrace();
@@ -101,7 +105,8 @@ public class ServerTest {
     
     System.out.println("서버와 연결 끊음.");
   }
-  
+
+
   private static void error() throws Exception {
     System.out.printf("오류: %s\n", in.readUTF());
   }
