@@ -18,6 +18,8 @@ public class CalculatorProcessor {
   }
   
   public void execute() throws Exception {
+    // close() 호출을 자동화 하기 위해 일부러 지역 레퍼런스변수에
+    // 필드의 주소값을 준 것
     try (Socket socket = this.socket;
         BufferedReader in = this.in;
         PrintStream out = this.out) {
