@@ -48,10 +48,5 @@ public class PhotoBoard implements Serializable {
   public void setLessonNo(int lessonNo) {
     this.lessonNo = lessonNo;
   }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
   
-  
-
 }
