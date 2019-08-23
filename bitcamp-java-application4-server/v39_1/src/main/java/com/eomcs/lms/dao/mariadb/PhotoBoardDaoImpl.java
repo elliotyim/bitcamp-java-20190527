@@ -45,6 +45,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
           photoBoard.setNo(autoIncrementPK);
         }
       }
+      
       return count;
     }
   }
