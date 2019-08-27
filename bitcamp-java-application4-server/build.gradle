@@ -24,6 +24,10 @@ repositories {
 }
 
 dependencies {
+    //Mybatis Persistence Framework
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.2'
+
+
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:27.1-jre'
 
