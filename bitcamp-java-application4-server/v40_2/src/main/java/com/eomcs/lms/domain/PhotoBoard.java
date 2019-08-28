@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class PhotoBoard implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
   private int no;
   private String title;
   private Date createdDate;
@@ -14,10 +14,9 @@ public class PhotoBoard implements Serializable {
   
   @Override
   public String toString() {
-    return "PhotoBoard [no=" + no + ", title=" + title + ", createdDate=" + createdDate + ", viewCount=" + viewCount
-        + ", lessonNo=" + lessonNo + "]";
+    return "PhotoBoard [no=" + no + ", title=" + title + ", createdDate=" + createdDate
+        + ", viewCount=" + viewCount + ", lessonNo=" + lessonNo + "]";
   }
-  
   public int getNo() {
     return no;
   }
@@ -48,5 +47,6 @@ public class PhotoBoard implements Serializable {
   public void setLessonNo(int lessonNo) {
     this.lessonNo = lessonNo;
   }
+  
   
 }

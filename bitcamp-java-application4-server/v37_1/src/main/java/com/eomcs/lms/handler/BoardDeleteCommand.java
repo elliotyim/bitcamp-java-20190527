@@ -23,8 +23,9 @@ public class BoardDeleteCommand implements Command {
       } else {
         System.out.println("해당 데이터가 없습니다.");
       }
+      
     } catch (Exception e) {
-      System.out.println("데이터 삭제에 실패했습니다.");
+      System.out.println("데이터 삭제에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }

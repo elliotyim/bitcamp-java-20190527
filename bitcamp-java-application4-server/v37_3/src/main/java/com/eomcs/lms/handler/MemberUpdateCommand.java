@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.Input;
@@ -16,14 +15,12 @@ public class MemberUpdateCommand implements Command {
   
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-
     try {
       int no = Input.getIntValue(in, out, "번호? ");
-
-      Member member = memberDao.findBy(no);
       
+      Member member = memberDao.findBy(no);
       if (member == null) {
-        System.out.println("해당 번호의 데이터가 없습니다!");
+        out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
       
@@ -55,9 +52,9 @@ public class MemberUpdateCommand implements Command {
       
       memberDao.update(member);
       out.println("데이터를 변경하였습니다.");
-      
+
     } catch (Exception e) {
-      out.println("데이터 변경에 실패했습니다.");
+      out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }

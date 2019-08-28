@@ -9,7 +9,7 @@ public class ConnectionFactory {
   String jdbcUrl;
   String username;
   String password;
-  
+
   public ConnectionFactory(
       String jdbcDriver, String jdbcUrl, String username, String password) {
     
@@ -18,10 +18,15 @@ public class ConnectionFactory {
     this.username = username;
     this.password = password;
   }
-  
+
   public Connection getConnection() throws Exception {
     Class.forName(jdbcDriver);
     
     return DriverManager.getConnection(jdbcUrl, username, password);
   }
 }
+
+
+
+
+

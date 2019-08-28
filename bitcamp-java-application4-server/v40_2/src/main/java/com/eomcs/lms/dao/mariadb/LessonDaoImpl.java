@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.ConnectionFactory;
@@ -13,7 +12,7 @@ import com.eomcs.util.ConnectionFactory;
 public class LessonDaoImpl implements LessonDao {
 
   ConnectionFactory conFactory;
-
+  
   public LessonDaoImpl(ConnectionFactory conFactory) {
     this.conFactory = conFactory;
   }
@@ -45,6 +44,7 @@ public class LessonDaoImpl implements LessonDao {
             + " order by sdt desc")) {
 
       ArrayList<Lesson> list = new ArrayList<>();
+      
       while (rs.next()) {
         Lesson lesson = new Lesson();
         lesson.setNo(rs.getInt("lesson_id"));
@@ -52,10 +52,9 @@ public class LessonDaoImpl implements LessonDao {
         lesson.setStartDate(rs.getDate("sdt"));
         lesson.setEndDate(rs.getDate("edt"));
         lesson.setTotalHours(rs.getInt("tot_hr"));
-
+        
         list.add(lesson);
       }
-
       return list;
     }
   }
@@ -83,7 +82,6 @@ public class LessonDaoImpl implements LessonDao {
         
       } else {
         return null;
-        
       }
     }
   }
@@ -92,7 +90,7 @@ public class LessonDaoImpl implements LessonDao {
   public int update(Lesson lesson) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("update lms_lesson set"
           + " titl='" + lesson.getTitle()
           + "', conts='" + lesson.getContents()
@@ -108,7 +106,7 @@ public class LessonDaoImpl implements LessonDao {
   public int delete(int no) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("delete from lms_lesson where lesson_id=" + no);
     }
   }

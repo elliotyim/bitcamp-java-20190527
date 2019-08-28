@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -15,7 +14,7 @@ public class PhotoBoardAddCommand implements Command {
   private PhotoFileDao photoFileDao;
   
   public PhotoBoardAddCommand(
-      PhotoBoardDao photoBoardDao,
+      PhotoBoardDao photoBoardDao, 
       PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
@@ -27,7 +26,7 @@ public class PhotoBoardAddCommand implements Command {
       PhotoBoard photoBoard = new PhotoBoard();
       photoBoard.setTitle(Input.getStringValue(in, out, "제목? "));
       photoBoard.setLessonNo(Input.getIntValue(in, out, "수업? "));
-
+      
       photoBoardDao.insert(photoBoard);
       
       out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
@@ -40,8 +39,8 @@ public class PhotoBoardAddCommand implements Command {
         if (filepath.length() == 0) {
           if (count > 0) {
             break;
-          } else {
-            out.println("최소 한 개의 파일을 등록해야 합니다.");
+          } else { 
+            out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
             continue;
           }
         }
@@ -57,8 +56,8 @@ public class PhotoBoardAddCommand implements Command {
     } catch (Exception e) {
       out.println("데이터 저장에 실패했습니다!");
       System.out.println(e.getMessage());
+      
     }
-    
   }
 
 }

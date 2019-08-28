@@ -1,7 +1,6 @@
 package com.eomcs.lms.dao;
 
 import java.util.List;
-
 import com.eomcs.lms.domain.Board;
 
 // DAO 사용 규칙을 정의한다.

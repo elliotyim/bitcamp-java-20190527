@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.ConnectionFactory;
@@ -13,7 +12,7 @@ import com.eomcs.util.ConnectionFactory;
 public class MemberDaoImpl implements MemberDao {
 
   ConnectionFactory conFactory;
-
+  
   public MemberDaoImpl(ConnectionFactory conFactory) {
     this.conFactory = conFactory;
   }
@@ -28,7 +27,7 @@ public class MemberDaoImpl implements MemberDao {
           + " values('" + member.getName()
           + "','" + member.getEmail()
           + "',password('" + member.getPassword()
-          + "'),now()" 
+          + "'),now()"
           + ",'" + member.getTel()
           + "','" + member.getPhoto()
           + "')");
@@ -45,6 +44,7 @@ public class MemberDaoImpl implements MemberDao {
             + " order by name asc")) {
 
       ArrayList<Member> list = new ArrayList<>();
+      
       while (rs.next()) {
         Member member = new Member();
         member.setNo(rs.getInt("member_id"));
@@ -52,10 +52,9 @@ public class MemberDaoImpl implements MemberDao {
         member.setEmail(rs.getString("email"));
         member.setTel(rs.getString("tel"));
         member.setRegisteredDate(rs.getDate("cdt"));
-
+        
         list.add(member);
       }
-
       return list;
     }
   }
@@ -82,7 +81,6 @@ public class MemberDaoImpl implements MemberDao {
         
       } else {
         return null;
-        
       }
     }
   }
@@ -101,6 +99,7 @@ public class MemberDaoImpl implements MemberDao {
             + " order by name asc")) {
 
       ArrayList<Member> list = new ArrayList<>();
+      
       while (rs.next()) {
         Member member = new Member();
         member.setNo(rs.getInt("member_id"));
@@ -108,10 +107,9 @@ public class MemberDaoImpl implements MemberDao {
         member.setEmail(rs.getString("email"));
         member.setTel(rs.getString("tel"));
         member.setRegisteredDate(rs.getDate("cdt"));
-
+        
         list.add(member);
       }
-
       return list;
     }
   }
@@ -120,7 +118,7 @@ public class MemberDaoImpl implements MemberDao {
   public int update(Member member) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("update lms_member set"
           + " name='" + member.getName()
           + "', email='" + member.getEmail()
@@ -135,7 +133,7 @@ public class MemberDaoImpl implements MemberDao {
   public int delete(int no) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("delete from lms_member where member_id=" + no);
     }
   }

@@ -16,10 +16,9 @@ public class MemberUpdateCommand implements Command {
   @Override
   public void execute() {
     int no = input.getIntValue("번호? ");
-
+    
     try {
       Member member = memberDao.findBy(no);
-      
       if (member == null) {
         System.out.println("해당 번호의 데이터가 없습니다!");
         return;
@@ -53,9 +52,9 @@ public class MemberUpdateCommand implements Command {
       
       memberDao.update(member);
       System.out.println("데이터를 변경하였습니다.");
-      
+
     } catch (Exception e) {
-      System.out.println("데이터 변경에 실패했습니다.");
+      System.out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }

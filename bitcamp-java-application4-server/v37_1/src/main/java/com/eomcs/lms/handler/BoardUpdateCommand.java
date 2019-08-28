@@ -32,9 +32,9 @@ public class BoardUpdateCommand implements Command {
       
       boardDao.update(board);
       System.out.println("데이터를 변경하였습니다.");
-      
+    
     } catch (Exception e) {
-      System.out.println("데이터 변경에 실패했습니다.");
+      System.out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }

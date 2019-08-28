@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Input;
@@ -17,7 +16,6 @@ public class BoardAddCommand implements Command {
 
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-    
     try {
       Board board = new Board();
       board.setContents(Input.getStringValue(in, out, "내용? "));

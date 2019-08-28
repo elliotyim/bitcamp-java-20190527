@@ -22,7 +22,6 @@ public class BoardAddCommand implements Command {
     try {
       boardDao.insert(board);
       System.out.println("저장하였습니다.");
-      
     } catch (Exception e) {
       System.out.println("데이터 저장에 실패했습니다!");
       System.out.println(e.getMessage());

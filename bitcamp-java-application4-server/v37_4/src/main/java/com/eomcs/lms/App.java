@@ -1,4 +1,4 @@
-// client-v37_4 : Stateful 통신 방식을 Stateless 통신 방식으로 변경하기.
+// v37_4 : Stateful 통신 방식을 Stateless 통신 방식으로 변경하기.
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashMap;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
@@ -22,6 +21,7 @@ import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.HelloCommand;
 import com.eomcs.lms.handler.LessonAddCommand;
 import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.LessonDetailCommand;
@@ -43,8 +43,9 @@ public class App {
   HashMap<String,Command> commandMap = new HashMap<>();
 
   public App() throws Exception {
-    // DAO가 사용할 Connection 객체 준비하기 
+
     try {
+      // DAO가 사용할 Connection 객체 준비하기
       con = DriverManager.getConnection(
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
 
@@ -73,12 +74,12 @@ public class App {
       commandMap.put("/board/list", new BoardListCommand(boardDao));
       commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
 
+      commandMap.put("/hello", new HelloCommand());
+
     } catch (Exception e) {
       System.out.println("DBMS에 연결할 수 없습니다!");
       throw e;
     }
-
-
 
   }
 
@@ -121,10 +122,11 @@ public class App {
       String request = in.readLine();
       if (request.equals("quit")) {
         out.println("Good bye!");
-
+        
       } else if (request.equals("serverstop")) {
         state = STOP;
         out.println("Good bye!");
+        
       } else {
         Command command = commandMap.get(request);
         if (command == null) {
@@ -132,9 +134,7 @@ public class App {
         } else {
           command.execute(in, out);
         }
-
       }
-
       out.println("!end!");
       out.flush();
 
@@ -144,15 +144,15 @@ public class App {
       System.out.println("클라이언트와 통신 오류!");
     }
 
-    // 다른 클라이언트의 요청을 계속 처리할지 말지 상태 값으로 결정한다.
+    // 다른 클라이언트의 요청을 계속 처리할지 말지 상태 값으로 알려준다.
     return state;
-
   }
 
   public static void main(String[] args) {
     try {
       App app = new App();
       app.service();
+
     } catch (Exception e) {
       System.out.println("시스템 실행 중 오류 발생!");
       e.printStackTrace();

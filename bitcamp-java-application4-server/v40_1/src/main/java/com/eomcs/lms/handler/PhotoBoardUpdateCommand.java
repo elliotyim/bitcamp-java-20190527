@@ -3,9 +3,7 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -21,7 +19,7 @@ public class PhotoBoardUpdateCommand implements Command {
 
   public PhotoBoardUpdateCommand(
       ConnectionFactory conFactory,
-      PhotoBoardDao photoBoardDao,
+      PhotoBoardDao photoBoardDao, 
       PhotoFileDao photoFileDao) {
     this.conFactory = conFactory;
     this.photoBoardDao = photoBoardDao;
@@ -31,6 +29,7 @@ public class PhotoBoardUpdateCommand implements Command {
   @Override
   public void execute(BufferedReader in, PrintStream out) {
     Connection con = null;
+    
     try {
       con = conFactory.getConnection();
       con.setAutoCommit(false);
@@ -42,9 +41,9 @@ public class PhotoBoardUpdateCommand implements Command {
         out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
-      
+
       out.println("제목을 입력하지 않으면 이전 제목을 유지합니다.");
-      String str = Input.getStringValue(in, out,
+      String str = Input.getStringValue(in, out, 
           String.format("제목(%s)? ", photoBoard.getTitle()));
 
       // 제목을 입력했으면 사진 게시글의 제목을 변경한다.
@@ -64,11 +63,9 @@ public class PhotoBoardUpdateCommand implements Command {
       // 파일을 변경할 지 여부를 묻는다.
       out.println("사진은 일부만 변경할 수 없습니다.");
       out.println("전체를 새로 등록해야 합니다.");
-      out.flush();
-      
-      String response = Input.getStringValue(in, out,
-          "사진을 변경하시겠습니까?(Y/N)");
-      
+      String response = Input.getStringValue(in, out, 
+          "사진을 변경하시겠습니까?(y/N)");
+
       if (!response.equalsIgnoreCase("y")) {
         out.println("파일 변경을 취소합니다.");
         return;
@@ -87,8 +84,8 @@ public class PhotoBoardUpdateCommand implements Command {
         if (filepath.length() == 0) {
           if (count > 0) {
             break;
-          } else {
-            out.println("최소 한 개의 파일을 등록해야 합니다.");
+          } else { 
+            out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
             continue;
           }
         }
@@ -98,18 +95,19 @@ public class PhotoBoardUpdateCommand implements Command {
         photoFileDao.insert(photoFile);
         count++;
       }
+
       con.commit();
       out.println("사진을 변경하였습니다.");
-
+      
     } catch (Exception e) {
-      try {con.rollback();} catch (SQLException e1) {}
-      out.println("데이터 변경에 실패했습니다.");
+      try {con.rollback();} catch (Exception e2) {}
+      
+      out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
       
     } finally {
-      try {con.setAutoCommit(true);} catch (SQLException e) {}
+      try {con.setAutoCommit(true);} catch (Exception e) {}
     }
-    
   }
 
 }

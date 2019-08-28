@@ -6,15 +6,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.util.ConnectionFactory;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
-  
-  ConnectionFactory conFactory;
 
+  ConnectionFactory conFactory;
+  
   public PhotoBoardDaoImpl(ConnectionFactory conFactory) {
     this.conFactory = conFactory;
   }
@@ -24,7 +23,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
-      // insert 한 후에 자동 생성된 PK 값을 리턴 받고 싶다면
+      // insert 한 후에 자동 생성된 PK 값을 리턴 받고 싶다면 
       // 두 번째 파라미터에 상수를 지정해야 한다.
       int count = stmt.executeUpdate(
           "insert into lms_photo(lesson_id,titl)"
@@ -32,19 +31,20 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
               + ",'" + photoBoard.getTitle() + "')",
           Statement.RETURN_GENERATED_KEYS);
       
-      // insert 한 후 자동 생성된 PK 값을 꺼내려면
+      // insert 한 후 자동 생성된 PK 값을 꺼내려면 
       // 다음 메서드를 호출하여 ResultSet을 얻어야 한다.
-      try(ResultSet rs = stmt.getGeneratedKeys()) {
-       
+      try (ResultSet rs = stmt.getGeneratedKeys();) {
+      
         // ResultSet을 통해 자동 생성된 값을 꺼내라.
         if (rs.next()) {
           int autoIncrementPK = rs.getInt(1);
-
-          // 호출자에게 리턴하는 방법!
-          // 파라미터로 받은 PhotoBoard 객체에 거꾸로 저장하라!
+          
+          // 호출자에게 리턴하는 방법:
+          // 파라미터로 받은 PhotoBoard 객체에 꺼꾸로 저장하라!
           photoBoard.setNo(autoIncrementPK);
         }
       }
+      
       return count;
     }
   }
@@ -57,6 +57,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
             "select * from lms_photo order by photo_id desc")) {
 
       ArrayList<PhotoBoard> list = new ArrayList<>();
+      
       while (rs.next()) {
         PhotoBoard photoBoard = new PhotoBoard();
         photoBoard.setNo(rs.getInt("photo_id"));
@@ -66,7 +67,6 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
         photoBoard.setLessonNo(rs.getInt("lesson_id"));
         list.add(photoBoard);
       }
-
       return list;
     }
   }
@@ -88,13 +88,12 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
         
         // 게시글을 찾았으면 조회수를 증가시킨다.
         stmt.executeUpdate("update lms_photo set"
-            + " vw_cnt=vw_cnt + 1"
-            + " where photo_id=" + no);
+            + " vw_cnt=vw_cnt + 1 where photo_id=" + no);
+        
         return photoBoard;
         
       } else {
         return null;
-        
       }
     }
   }
@@ -103,7 +102,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   public int update(PhotoBoard photoBoard) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("update lms_photo set"
           + " titl='" + photoBoard.getTitle()
           + "' where photo_id=" + photoBoard.getNo());
@@ -114,18 +113,18 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   public int delete(int no) throws Exception {
     try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
-      
+
       return stmt.executeUpdate("delete from lms_photo where photo_id=" + no);
     }
   }
   
   public static void main(String[] args) throws Exception {
     try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
-      
+        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");) {
+    
       //PhotoBoardDao dao = new PhotoBoardDaoImpl(con);
-      
-      // 1) insert() 테스트
+    
+      //1) insert() 테스트
       /*
       PhotoBoard b = new PhotoBoard();
       b.setLessonNo(101);
@@ -134,22 +133,21 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       dao.insert(b);
       */
       
-      // 2) findAll() 테스트
+      //2) findAll() 테스트
       /*
       List<PhotoBoard> list = dao.findAll();
-      
       for (PhotoBoard b : list) {
-        System.out.println(b.toString());
+        System.out.println(b);
       }
       */
       
-      // 3) findBy() 테스트
+      //3) findBy() 테스트
       /*
-      PhotoBoard b = dao.findBy(9); 
+      PhotoBoard b = dao.findBy(9);
       System.out.println(b);
       */
       
-      // 4) update() 테스트
+      //4) update() 테스트
       /*
       PhotoBoard b = new PhotoBoard();
       b.setNo(9);
@@ -157,15 +155,23 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       dao.update(b);
       */
       
-      // 5) delete() 테스트
+      //5) delete() 테스트
       /*
       dao.delete(9);
       */
       
       System.out.println("실행 완료!");
-      
     }
-    
   }
 
 }
+
+
+
+
+
+
+
+
+
+
