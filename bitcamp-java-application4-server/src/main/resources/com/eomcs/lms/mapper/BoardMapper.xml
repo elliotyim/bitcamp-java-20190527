@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BoardDao">
+<mapper namespace="com.eomcs.lms.dao.BoardDao">
 
   <!-- 컬럼 이름과 자바 객체의 프로퍼티 이름을 연결한다. -->
   <resultMap type="Board" id="BoardMap">
@@ -11,25 +11,25 @@
     <result column="cdt" property="createdDate"/>
     <result column="vw_cnt" property="viewCount"/>
   </resultMap>
-
-  <select id="findAll" resultMap="BoardMap">
+  
+  <sql id="sql1">
     select 
       board_id,
       conts,
       cdt,
       vw_cnt
     from lms_board 
+
+  </sql>
+
+  <select id="findAll" resultMap="BoardMap">
+    <include refid="sql1"/>
     order by board_id desc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="BoardMap">
-    select
-      board_id, 
-      conts,
-      cdt,
-      vw_cnt
-    from lms_board 
-    where board_id=#{haha} 
+    <include refid="sql1"/>
+    where board_id=#{haha}
   </select>
   
   <update id="increaseViewCount" parameterType="int">
