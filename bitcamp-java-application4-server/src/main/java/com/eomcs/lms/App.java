@@ -55,7 +55,7 @@ public class App {
     RequestMappingHandlerMapping mapping =
         new RequestMappingHandlerMapping();
 
-    // 객체풀에서 @Componenet 애노테이션이 붙은 객체 목록을 꺼낸다.
+    // 객체풀에서 @Component 애노테이션이 붙은 객체 목록을 꺼낸다.
     Map<String,Object> components = appCtx.getBeansWithAnnotation(Component.class);
 
     //System.out.println("========================");
