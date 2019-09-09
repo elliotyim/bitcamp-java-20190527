@@ -49,7 +49,7 @@ dependencies {
     // Apache HttpClient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
     
-    // Java Servlet API
+    // Servlet API
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     
     implementation 'com.google.guava:guava:27.1-jre'
