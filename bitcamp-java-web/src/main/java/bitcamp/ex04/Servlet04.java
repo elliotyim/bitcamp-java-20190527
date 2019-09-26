@@ -71,7 +71,6 @@ public class Servlet04 extends GenericServlet {
     out.printf("나이=%s\n", age);
     out.printf("사진=%s\n", photo);
     */
-    
     // 멀티파트 형식의 데이터 처리하기
     // 1) Apache 라이브러리 가져온다.
     //    - mvnrepository.com에서 apache fileupload 라이브러리 검색한다.
@@ -115,7 +114,7 @@ public class Servlet04 extends GenericServlet {
           // 전체 파일 경로를 준비한다.
           // => /java-web/upload/파일명
           File file = new File(this.uploadDir + "/" + filename);
-          
+          System.out.println(file.getCanonicalPath());
           // 파일 경로에 업로드 파일을 저장한다.
           part.write(file);
           
