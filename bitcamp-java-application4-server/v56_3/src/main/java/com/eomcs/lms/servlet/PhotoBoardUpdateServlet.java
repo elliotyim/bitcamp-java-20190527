@@ -3,17 +3,14 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -23,7 +20,7 @@ import com.eomcs.lms.domain.PhotoFile;
 public class PhotoBoardUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
-  private static final Logger logger =
+  private static final Logger logger = 
       LogManager.getLogger(PhotoBoardUpdateServlet.class);
   
   private PhotoBoardDao photoBoardDao;
@@ -31,7 +28,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
   
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);

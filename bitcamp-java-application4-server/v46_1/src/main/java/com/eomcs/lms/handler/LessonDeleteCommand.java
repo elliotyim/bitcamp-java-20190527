@@ -12,11 +12,11 @@ public class LessonDeleteCommand implements Command {
   public LessonDeleteCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
-  
+
   public String getCommandName() {
     return "/lesson/delete";
   }
-
+  
   @Override
   public void execute(BufferedReader in, PrintStream out) {
     try {

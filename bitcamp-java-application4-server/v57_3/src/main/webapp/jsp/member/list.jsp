@@ -23,7 +23,6 @@
   <th>전화번호</th>
   <th>등록일</th>
 </tr>
-
 <c:forEach items="${members}" var="member">
   <tr>
     <td>${member.no}</td>
@@ -32,7 +31,7 @@
     <td>${member.tel}</td>
     <td>${member.registeredDate}</td>
   </tr>
-</c:forEach>
+</c:forEach> 
 </table>
 <form action='/member/search'>
   검색어: <input type='text' name='keyword'>

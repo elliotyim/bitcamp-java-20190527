@@ -3,18 +3,14 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 
@@ -22,7 +18,7 @@ import com.eomcs.lms.dao.PhotoFileDao;
 public class PhotoBoardDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
-  private static final Logger logger =
+  private static final Logger logger = 
       LogManager.getLogger(PhotoBoardDeleteServlet.class);
   
   private PhotoBoardDao photoBoardDao;
@@ -30,13 +26,12 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
   
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
   }
-  
-  @Transactional
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
@@ -66,5 +61,4 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
       logger.error(strOut.toString());
     }
   }
-  
 }

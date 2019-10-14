@@ -2,11 +2,9 @@ package com.eomcs.util;
 
 import java.io.InputStream;
 import java.util.HashMap;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
@@ -38,13 +36,13 @@ import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
 public class ApplicationContext {
   
-  HashMap<String, Object> objPool = new HashMap<>();
-
+  HashMap<String,Object> objPool = new HashMap<>();
+  
   public ApplicationContext() throws Exception {
     // Mybatis 객체 준비
     InputStream inputStream = 
         Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml");
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(
+    SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryProxy(
         new SqlSessionFactoryBuilder().build(inputStream));
     
     // 트랜잭션 관리자를 준비한다.
@@ -93,16 +91,24 @@ public class ApplicationContext {
     objPool.put("/auth/login", new LoginCommand(memberDao));
   }
   
-  public Object getBean(String name) throws Exception {
+  public Object getBean(String name) throws RuntimeException {
     Object obj = objPool.get(name);
-    if (obj == null)
-      throw new RuntimeException();
+    if (obj == null) 
+      throw new RuntimeException("해당 이름의 빈을 찾을 수 없습니다.");
     return obj;
   }
   
   public void addBean(String name, Object obj) {
     if (name == null || obj == null)
       return;
+    
     objPool.put(name, obj);
   }
 }
+
+
+
+
+
+
+

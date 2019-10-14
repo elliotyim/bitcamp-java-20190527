@@ -12,14 +12,13 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 
 @Component("/photoboard/add")
-public class PhotoBoardAddController implements PageController {
+public class PhotoBoardAddController {
   
   @Resource private PlatformTransactionManager txManager;
   @Resource private PhotoBoardDao photoBoardDao;

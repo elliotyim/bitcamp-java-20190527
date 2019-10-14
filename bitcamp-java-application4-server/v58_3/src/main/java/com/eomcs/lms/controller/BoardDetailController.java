@@ -5,12 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 @Component("/board/detail")
-public class BoardDetailController implements PageController {
+public class BoardDetailController {
 
   @Resource
   private BoardDao boardDao;

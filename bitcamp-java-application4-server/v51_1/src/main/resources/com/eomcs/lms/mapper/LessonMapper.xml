@@ -13,9 +13,9 @@
     <result column="tot_hr" property="totalHours"/>
     <result column="day_hr" property="dayHours"/>
   </resultMap>
-
+  
   <sql id="basicColumn">
-    select 
+    select
       lesson_id,
       titl,
       sdt,
@@ -58,7 +58,7 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from lms_lesson
+    delete from lms_lesson 
     where lesson_id=#{value}
   </delete>
 

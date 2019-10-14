@@ -8,8 +8,8 @@ import java.util.HashMap;
 // => 나중에 메서드를 호출하려면 인스턴스 주소도 알아야 하기 때문에
 //    메서드 정보를 보관할 때 인스턴스도 함께 보관해야 한다.
 public class RequestMappingHandlerMapping {
-  // HashMap<명령어, (메서드+인스턴스)>
-  HashMap<String, RequestHandler> handlerMap = new HashMap<>(); 
+  // HashMap<명령어, (메서드 + 인스턴스)>
+  HashMap<String,RequestHandler> handlerMap = new HashMap<>();
   
   public void addRequestHandler(String name, Object bean, Method method) {
     handlerMap.put(name, new RequestHandler(method, bean));

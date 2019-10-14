@@ -5,12 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 
 @Component("/photoboard/detail")
-public class PhotoBoardDetailController implements PageController {
+public class PhotoBoardDetailController {
 
   @Resource private PhotoBoardDao photoBoardDao;
 

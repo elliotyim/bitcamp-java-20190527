@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.http.ConnectionClosedException;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -31,7 +30,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.util.RequestMappingHandlerMapping;
 import com.eomcs.util.RequestMappingHandlerMapping.RequestHandler;
 import com.eomcs.util.ServletRequest;
@@ -51,19 +49,20 @@ public class App implements HttpRequestHandler {
 
     // Spring IoC 컨테이너에 들어 있는(Spring IoC 컨테이너가 생성한) 객체 알아내기
     String[] beanNames = appCtx.getBeanDefinitionNames();
-    logger.debug("[Spring IoC 컨테이너 객체들]---------------------------");
+    logger.debug("[Spring IoC 컨테이너 객체들]------------");
     for (String beanName : beanNames) {
       logger.debug(String.format("%s(%s)",
           appCtx.getBean(beanName).getClass().getSimpleName(),
           beanName));
     }
-    logger.debug("---------------------------------------------------");
+    logger.debug("------------------------------------");
 
     handlerMapping = createRequestMappingHandlerMapping();
   }
 
   private RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
-    RequestMappingHandlerMapping mapping =
+
+    RequestMappingHandlerMapping mapping = 
         new RequestMappingHandlerMapping();
 
     // 객체풀에서 @Component 애노테이션이 붙은 객체 목록을 꺼낸다.
@@ -74,12 +73,13 @@ public class App implements HttpRequestHandler {
     // 객체 안에 선언된 메서드 중에서 @RequestMapping이 붙은 메서드를 찾아낸다.
     Collection<Object> objList = components.values();
     objList.forEach(obj -> {
+
       Method[] methods = null;
 
       if (AopUtils.isAopProxy(obj)) { // 원본이 아니라 프록시 객체라면
         try {
           // 프록시 객체의 클래스가 아니라 원본 객체의 클래스 정보를 가져온다.
-          Class<?> originClass =
+          Class<?> originClass = 
               (Class<?>) obj.getClass().getMethod("getTargetClass").invoke(obj);
           methods = originClass.getMethods();
         } catch (Exception e) {
@@ -94,18 +94,19 @@ public class App implements HttpRequestHandler {
         RequestMapping anno = m.getAnnotation(RequestMapping.class);
         if (anno == null)
           continue;
-
         // @RequestMapping 이 붙은 메서드를 찾으면 mapping 객체에 보관한다.
         mapping.addRequestHandler(anno.value()[0], obj, m);
-        logger.trace(String.format("%s ==> %s.%s()", anno.value()[0],
+        logger.trace(String.format("%s ==> %s.%s()", anno.value()[0], 
             obj.getClass().getSimpleName(),
             m.getName()));
       }
+
     });
 
     return mapping;
   }
 
+  @SuppressWarnings("static-access")
   private void service() throws Exception {
 
     SocketConfig socketConfig = SocketConfig.custom()
@@ -141,7 +142,6 @@ public class App implements HttpRequestHandler {
         server.shutdown(5, TimeUnit.SECONDS);
       }
     });
-
   }
 
   @Override
@@ -157,33 +157,33 @@ public class App implements HttpRequestHandler {
     // 커맨드 객체에 있는 request handler를 호출할 때 넘겨 줄 파라미터 객체 준비
     ServletRequest servletRequest = new ServletRequest();
     ServletResponse servletResponse = new ServletResponse();
-
+    
     // 클라이언트가 요청한 명령 알아내기
     // [request line]
-    // => GET /member/add?name=aaa&email=aaa@test.com&password=1111&tel=1111-1111
+    // => GET /member/add?name=aaa&email=aaa@test.com&password=1111&tel=1111-1111 HTTP/1.1
     // [uri]
     // => /member/add?name=aaa&email=aaa@test.com&password=1111&tel=1111-1111
     String uriStr = request.getRequestLine().getUri();
     String[] values = uriStr.split("\\?");
-
-
+    
     // => /member/add
     String command = values[0];
     logger.info(command);
-
+    
     if (values.length > 1) {
       // => name=aaa&email=aaa@test.com&password=1111&tel=1111-1111
-      String queryString = values[1]; // 출력용.
+      String queryString = values[1]; // 출력 용.
       logger.info(queryString);
     }
     
     try {
-      RequestHandler requestHandler =
+      RequestHandler requestHandler = 
           handlerMapping.getRequestHandler(command);
+
       if (requestHandler != null) {
         // 클라이언트 요청을 처리하기 위해 메서드를 호출한다.
         servletRequest.setUri(uriStr); // URL에 포함된 파라미터 값을 추출하여 보관한다.
-        requestHandler.method.invoke(requestHandler.bean,
+        requestHandler.method.invoke(requestHandler.bean, 
             servletRequest, servletResponse);
 
         // 클라이언트에게 응답
@@ -202,6 +202,7 @@ public class App implements HttpRequestHandler {
         response.setEntity(entity);
         logger.info("실패!");
       }
+
     } catch (Exception e) {
       logger.info("클라이언트 요청 처리 중 오류 발생!");
 
@@ -226,9 +227,9 @@ public class App implements HttpRequestHandler {
     } catch (Exception e) {
       logger.info("시스템 실행 중 오류 발생!");
 
-      StringWriter out = new StringWriter();
-      e.printStackTrace(new PrintWriter(out));
-      logger.debug(out.toString());
+      StringWriter out2 = new StringWriter();
+      e.printStackTrace(new PrintWriter(out2));
+      logger.debug(out2.toString());
     }
   }
 }

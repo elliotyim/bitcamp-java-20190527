@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.UUID;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.springframework.context.ApplicationContext;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -87,10 +84,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
         if (!part.getName().equals("filePath") || part.getSize() == 0) {
           continue;
         }
-        
         // 클라이언트가 보낸 파일을 디스크에 저장한다.
         String filename = UUID.randomUUID().toString();
-        part.write(uploadDir +"/" + filename);
+        part.write(uploadDir + "/" + filename);
         
         // 저장한 파일명을 DB에 입력한다.
         PhotoFile photoFile = new PhotoFile();

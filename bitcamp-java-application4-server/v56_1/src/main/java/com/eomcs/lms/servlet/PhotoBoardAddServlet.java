@@ -2,19 +2,12 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -23,18 +16,22 @@ import com.eomcs.lms.domain.PhotoFile;
 @WebServlet("/photoboard/add")
 public class PhotoBoardAddServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private PlatformTransactionManager txManager;
+  
+  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
+  /*
+  private static final Logger logger = 
+      LogManager.getLogger(PhotoBoardAddServlet.class);
+  */
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
   
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
-    this.txManager = appCtx.getBean(PlatformTransactionManager.class);
-    
   }
 
   @Override
@@ -57,6 +54,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
     out.println("</body></html>");
   }
   
+ 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
@@ -65,15 +63,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
         + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
         + "</head>");
     out.println("<body><h1>사진게시물 등록</h1>");
-
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-    
-    TransactionStatus status = txManager.getTransaction(def);
-    
     try {
-      
       PhotoBoard photoBoard = new PhotoBoard();
       photoBoard.setTitle(request.getParameter("title"));
       photoBoard.setLessonNo(Integer.parseInt(request.getParameter("lessonNo")));
@@ -94,15 +84,12 @@ public class PhotoBoardAddServlet extends HttpServlet {
       }
       
       if (count == 0) {
-        out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
         throw new Exception("사진 파일 없음!");
       }
       
-      txManager.commit(status);
       out.println("<p>저장하였습니다.</p>");
       
     } catch (Exception e) {
-      txManager.rollback(status);
       out.println("<p>데이터 저장에 실패했습니다!</p>");
       throw new RuntimeException(e);
       

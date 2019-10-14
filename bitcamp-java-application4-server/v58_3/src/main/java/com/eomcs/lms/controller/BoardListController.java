@@ -1,19 +1,16 @@
 package com.eomcs.lms.controller;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 @Component("/board/list")
-public class BoardListController{
+public class BoardListController {
   
   //@Autowired // 스프링 애노테이션
   @Resource // java 표준 애노테이션

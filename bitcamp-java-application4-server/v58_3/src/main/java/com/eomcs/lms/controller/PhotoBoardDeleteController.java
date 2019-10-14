@@ -9,12 +9,11 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 
 @Component("/photoboard/delete")
-public class PhotoBoardDeleteController implements PageController {
+public class PhotoBoardDeleteController {
   
   @Resource private PlatformTransactionManager txManager;
   @Resource private PhotoBoardDao photoBoardDao;

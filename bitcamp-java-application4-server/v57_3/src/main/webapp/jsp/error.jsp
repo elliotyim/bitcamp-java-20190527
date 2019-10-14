@@ -20,7 +20,7 @@
 <jsp:include page="header.jsp"/>
     
 <div id='content'>
-  <h1>실행 오류!</h1>
+  <h1>실행 오류2!</h1>
   <p>${message}</p>
 </div>
 
@@ -28,7 +28,6 @@
 
 </body>
 </html>
-
 <%! 
 private static final Logger logger = LogManager.getLogger("error.jsp");
 %>

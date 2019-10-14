@@ -3,30 +3,28 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.context.ApplicationContext;
-
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 @WebServlet("/lesson/list")
 public class LessonListServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private LessonDao lessonDao;
   
+  private LessonDao lessonDao;
+
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     lessonDao = appCtx.getBean(LessonDao.class);
   }
-  
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
@@ -38,32 +36,31 @@ public class LessonListServlet extends HttpServlet {
     out.println("<a href='/lesson/add'>새 수업</a><br>");
     try {
       out.println("<table class='table table-hover'>");
-      out.println("<tr><th>번호</th><th>수업명</th><th>수업시작일</th>"
-          + "<th>수업종료일</th><th>총수업시간</th><th>일수업시간</th></tr>");
-
+      out.println("<tr><th>번호</th><th>수업</th><th>기간</th><th>총수업시간</th></tr>");
       List<Lesson> lessons = lessonDao.findAll();
       for (Lesson lesson : lessons) {
-
-        out.printf("<tr><td>%d</td>"
+        out.printf("<tr>"
+            + "<td>%d</td>"
             + "<td><a href='/lesson/detail?no=%d'>%s</a></td>"
-            + "<td>%s</td><td>%s</td><td>%d</td><td>%d</td></tr>\n", 
+            + "<td>%s ~ %s</td>"
+            + "<td>%d</td></tr>\n", 
             lesson.getNo(),
             lesson.getNo(),
-            lesson.getTitle(),
-            lesson.getStartDate(),
-            lesson.getEndDate(),
-            lesson.getTotalHours(),
-            lesson.getDayHours());
+            lesson.getTitle(), 
+            lesson.getStartDate(), 
+            lesson.getEndDate(), 
+            lesson.getTotalHours());
       }
       out.println("</table>");
-
+      
     } catch (Exception e) {
       out.println("<p>데이터 목록 조회에 실패했습니다!</p>");
       throw new RuntimeException(e);
+      
+    } finally {
+      out.println("</body></html>");
     }
-    out.println("</body></html>");
   }
-
 }
 
 

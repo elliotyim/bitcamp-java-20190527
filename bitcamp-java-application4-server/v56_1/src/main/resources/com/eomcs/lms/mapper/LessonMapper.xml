@@ -13,15 +13,14 @@
     <result column="tot_hr" property="totalHours"/>
     <result column="day_hr" property="dayHours"/>
   </resultMap>
-
+  
   <sql id="basicColumn">
-    select 
+    select
       lesson_id,
       titl,
       sdt,
       edt,
-      tot_hr,
-      day_hr
+      tot_hr
   </sql>
 
   <select id="findAll" resultMap="LessonMap">
@@ -29,7 +28,7 @@
     from 
       lms_lesson
     order by 
-      sdt asc
+      sdt desc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="LessonMap">
@@ -59,7 +58,7 @@
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from lms_lesson
+    delete from lms_lesson 
     where lesson_id=#{value}
   </delete>
 

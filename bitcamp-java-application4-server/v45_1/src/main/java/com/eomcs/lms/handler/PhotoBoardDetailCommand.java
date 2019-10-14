@@ -3,7 +3,6 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.List;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -43,7 +42,7 @@ public class PhotoBoardDetailCommand implements Command {
       
     } catch (Exception e) {
       out.println("데이터 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
 

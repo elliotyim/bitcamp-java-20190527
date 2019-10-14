@@ -3,7 +3,6 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -11,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.context.ApplicationContext;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
@@ -59,8 +56,7 @@ public class LoginServlet extends HttpServlet {
     out.println("<div id='content'>");
     out.println("<h1>로그인 폼</h1>");
     out.println("<form action='/auth/login' method='post'>");
-    out.printf("이메일: <input type='text' name='email' value='%s'><br>\n",
-        email);
+    out.printf("이메일: <input type='text' name='email' value='%s'><br>\n", email);
     out.println("암호: <input type='text' name='password'><br>");
     out.println("<button>로그인</button>");
     out.println("</form>");
@@ -103,7 +99,7 @@ public class LoginServlet extends HttpServlet {
         
       } else {
         out.printf("<p>%s 님 환영합니다.</p>\n", member.getName());
-        
+       
         // 로그인 사용자의 정보를 HttpSession 보관소에 저장한다.
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", member);

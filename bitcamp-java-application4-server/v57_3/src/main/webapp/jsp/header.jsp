@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <nav id='header' class='navbar navbar-expand-lg navbar-light bg-light'>
   <a class='navbar-brand' href='#'>
     <img src='/images/logo.png' class='d-inline-block align-top'>
@@ -32,7 +31,7 @@
   <a href='/auth/login' class='btn btn-outline-dark btn-sm'>로그인</a>
 </c:if>
 <c:if test="${not empty loginUser}">
-  <a href='/member/detail?no=<${loginUser.no}'>${loginUser.name}</a> 
+  <a href='/member/detail?no=${loginUser.no}'>${loginUser.name}</a> 
   <a href='/auth/logout' class='btn btn-outline-dark btn-sm'>로그아웃</a>
 </c:if>
   </div>

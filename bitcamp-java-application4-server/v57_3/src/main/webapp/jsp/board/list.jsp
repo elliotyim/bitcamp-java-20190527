@@ -22,7 +22,6 @@
   <th>등록일</th>
   <th>조회수</th>
 </tr>
-
 <c:forEach items="${boards}" var="board">
   <tr>
     <td>${board.no}</td>
@@ -30,8 +29,7 @@
     <td>${board.createdDate}</td>
     <td>${board.viewCount}</td>
   </tr>
-</c:forEach>
-
+</c:forEach>  
 </table>
 </div>
 

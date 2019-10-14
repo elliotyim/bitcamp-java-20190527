@@ -6,12 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 @Component("/lesson/add")
-public class LessonAddController implements PageController {
+public class LessonAddController {
 
   @Resource
   private LessonDao lessonDao;

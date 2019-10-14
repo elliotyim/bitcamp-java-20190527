@@ -32,7 +32,7 @@ public class PhotoBoardListCommand {
       
     } catch (Exception e) {
       out.println("데이터 목록 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
 

@@ -11,7 +11,7 @@
     <result column="cdt" property="createdDate"/>
     <result column="vw_cnt" property="viewCount"/>
   </resultMap>
-  
+
   <sql id="sql1">
     select 
       board_id,
@@ -19,7 +19,6 @@
       cdt,
       vw_cnt
     from lms_board 
-
   </sql>
 
   <select id="findAll" resultMap="BoardMap">
@@ -29,7 +28,7 @@
   
   <select id="findBy" parameterType="int" resultMap="BoardMap">
     <include refid="sql1"/>
-    where board_id=#{haha}
+    where board_id=#{haha} 
   </select>
   
   <update id="increaseViewCount" parameterType="int">

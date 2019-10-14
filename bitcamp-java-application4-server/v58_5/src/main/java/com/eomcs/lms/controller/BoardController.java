@@ -64,4 +64,5 @@ public class BoardController {
     boardDao.update(board);
     return "redirect:list";
   }
+
 }

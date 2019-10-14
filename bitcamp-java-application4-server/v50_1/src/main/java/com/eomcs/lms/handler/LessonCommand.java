@@ -3,9 +3,7 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Input;
@@ -58,7 +56,7 @@ public class LessonCommand {
       System.out.println(e.getMessage());
     }
   }
-  
+
   @RequestMapping("/lesson/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void detail(BufferedReader in, PrintStream out) {
     try {
@@ -160,7 +158,6 @@ public class LessonCommand {
       System.out.println(e.getMessage());
     }
   }
-
 }
 
 

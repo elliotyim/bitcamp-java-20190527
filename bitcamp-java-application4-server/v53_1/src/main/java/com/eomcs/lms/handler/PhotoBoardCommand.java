@@ -2,12 +2,14 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -19,9 +21,10 @@ public class PhotoBoardCommand {
   
   // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
   /*
-  private static final Logger logger =
+  private static final Logger logger = 
       LogManager.getLogger(PhotoBoardCommand.class);
   */
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
   
@@ -31,7 +34,7 @@ public class PhotoBoardCommand {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
-  
+
   @Transactional
   @RequestMapping("/photoboard/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
@@ -218,5 +221,5 @@ public class PhotoBoardCommand {
       throw new RuntimeException(e);
     }
   }
-  
+
 }

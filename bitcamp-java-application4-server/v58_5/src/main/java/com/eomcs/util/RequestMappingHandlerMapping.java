@@ -3,7 +3,6 @@ package com.eomcs.util;
 import static org.reflections.ReflectionUtils.getMethods;
 import static org.reflections.ReflectionUtils.withAnnotation;
 import static org.reflections.ReflectionUtils.withPrefix;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -12,14 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
@@ -164,7 +161,7 @@ public class RequestMappingHandlerMapping {
       
       } else if (paramType == Part.class) {
         return request.getPart(paramName);
-        
+      
       } else if (paramType == Part[].class) {
         ArrayList<Part> values = new ArrayList<>();
         Collection<Part> parts = request.getParts();
@@ -253,9 +250,9 @@ public class RequestMappingHandlerMapping {
         return value.charAt(0);
       else if (paramType == boolean .class || paramType == Boolean.class) 
         return Boolean.parseBoolean(value);
-      else if (paramType == java.util.Date.class || paramType == java.sql.Date.class)
+      else if (paramType == java.util.Date.class ||
+          paramType == java.sql.Date.class) 
         return java.sql.Date.valueOf(value); // 문자열 형식: "yyyy-MM-dd" 이어야 한다.
-      
       return value;
     }
 
@@ -285,3 +282,8 @@ public class RequestMappingHandlerMapping {
     }
   }
 }
+
+
+
+
+

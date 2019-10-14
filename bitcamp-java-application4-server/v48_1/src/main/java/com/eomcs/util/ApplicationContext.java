@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
@@ -24,23 +22,23 @@ import com.eomcs.lms.dao.PhotoFileDao;
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
 // 2단계: 특정 패키지의 클래스에 대해 인스턴스 생성하기
 public class ApplicationContext {
-
-  HashMap<String, Object> objPool = new HashMap<>();
-
+  
+  HashMap<String,Object> objPool = new HashMap<>();
+  
   // 자동 생성할 타입(클래스 정보) 목록
   ArrayList<Class<?>> classes = new ArrayList<>();
-
+  
   public ApplicationContext(String packageName) throws Exception {
-
+    
     createSqlSessionFactory();
     createTransactionManager();
     createDao();
-
+    
     // 파라미터에 주어진 패키지를 뒤져서 Command 인터페이스를 구현한 클래스를 찾는다.
     // => 패키지의 경로를 알아낸다.
     String packagePath = packageName.replace(".", "/");
     File fullPath = Resources.getResourceAsFile(packagePath);
-
+    
     // => 찾은 클래스의 인스턴스를 생성한다.
     findCommandClass(fullPath, packageName);
     createCommand();
@@ -48,40 +46,40 @@ public class ApplicationContext {
     System.out.println("생성된 객체들: ");
     Set<String> keySet = objPool.keySet();
     keySet.forEach(key -> {
-      System.out.printf("%s : %s\n",
+      System.out.printf("%s : %s\n", 
           key, objPool.get(key).getClass().getName());
     });
   }
-
+  
   private void findCommandClass(File path, String packageName) {
     File[] files = path.listFiles(file -> {
-      if (file.isDirectory())
-        return true;
-
-      if (file.getName().endsWith(".class") &&
-          file.getName().indexOf('$') == -1)
-        return true;
-
-      return false;
-    });
-
+        if (file.isDirectory())
+          return true;
+        
+        if (file.getName().endsWith(".class") && 
+            file.getName().indexOf('$') == -1)
+          return true;
+        
+        return false;
+      });
+    
     for (File f : files) {
       if (f.isDirectory()) {
         findCommandClass(f, packageName + "." + f.getName());
       } else {
         String className = String.format("%s.%s",
-            packageName,
-            f.getName().replace(".class", ""));
+            packageName, f.getName().replace(".class", ""));
+        
         try {
           Class<?> clazz = Class.forName(className);
-          if (isComponent(clazz) && !Modifier.isAbstract(clazz.getModifiers()))
+          if (isComponent(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
             classes.add(clazz);
-
+          }
         } catch (ClassNotFoundException e) {
+          // 클래스를 로딩하다가 오류가 발생하면 무시한다.
         }
       }
     }
-
   }
   
   private boolean isComponent(Class<?> clazz) {
@@ -97,11 +95,12 @@ public class ApplicationContext {
   private void createCommand() {
     for (Class<?> clazz : classes) {
       // 클래스 정보에서 Component 애노테이션의 데이터를 추출한다.
+      // => 꺼내고자 하는 애노테이션의 타입을 정확하게 지정해야 한다.
       Component compAnno = clazz.getAnnotation(Component.class);
       
       // 객체를 저장할 때 사용할 이름을 꺼낸다.
       String beanName = compAnno.value();
-      if (beanName.length() == 0) { // 애노테이션의 빈 이름을 지정하지 않았다면
+      if (beanName.length() == 0) { // 애노테이션에서 빈 이름을 지정하지 않았다면 
         beanName = clazz.getName(); // 클래스 이름을 빈 이름으로 사용할 것이다.
       }
       
@@ -111,28 +110,30 @@ public class ApplicationContext {
         objPool.put(beanName, defaultConstructor.newInstance());
         continue;
       } catch (Exception e) {
-
       }
-
+      
       // 다른 생성자 꺼내기
       Constructor<?> constructor = clazz.getConstructors()[0];
+      
       try {
         // 생성자의 파라미터 정보로 값을 준비한다.
         Parameter[] params = constructor.getParameters();
         Object[] values = prepareParameterValues(params);
-        
+
         // 준비된 값을 가지고 생성자를 통해 인스턴스를 생성한다.
         objPool.put(beanName, constructor.newInstance(values));
+        
       } catch (Exception e) {
       }
     }
   }
-
+  
   private Object[] prepareParameterValues(Parameter[] params) {
     Object[] values = new Object[params.length];
+    
     // 파라미터의 타입에 해당하는 값을 objPool에서 찾는다.
     for (int i = 0; i < params.length; i++) {
-        values[i] = getBean(params[i].getType());
+      values[i] = getBean(params[i].getType());
     }
     return values;
   }
@@ -142,7 +143,7 @@ public class ApplicationContext {
     while (values.hasNext()) {
       Object value = values.next();
       
-      // 풀에서 꺼낸 객체의 타입이 일치하는지 검사
+      // 풀에서 꺼낸 객체의 타입이 일치하는지 검사 
       if (value.getClass() == type)
         return value;
       
@@ -153,52 +154,56 @@ public class ApplicationContext {
           return value;
       }
     }
-    
-    return new RuntimeException("해당 타입의 빈을 찾을 수 없습니다.");
+    throw new RuntimeException("해당 타입의 빈을 찾을 수 없습니다.");
   }
 
-  public Object getBean(String name) throws Exception {
+  public Object getBean(String name) {
     Object obj = objPool.get(name);
-    if (obj == null)
-      throw new RuntimeException();
+    if (obj == null) 
+      throw new RuntimeException("해당 이름의 빈을 찾을 수 없습니다.");
     return obj;
   }
-
+  
   public void addBean(String name, Object obj) {
     if (name == null || obj == null)
       return;
+    
     objPool.put(name, obj);
   }
-
+  
   private void createSqlSessionFactory() throws Exception {
     // Mybatis 객체 준비
     InputStream inputStream = 
         Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml");
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(
+    SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryProxy(
         new SqlSessionFactoryBuilder().build(inputStream));
-
     objPool.put("sqlSessionFactory", sqlSessionFactory);
   }
-
+  
   private void createTransactionManager() throws Exception {
-    // 트랜잭션 관리자를 준비한다.
     PlatformTransactionManager txManager = 
         new PlatformTransactionManager(
             (SqlSessionFactory)objPool.get("sqlSessionFactory"));
     objPool.put("txManager", txManager);
   }
-
+  
   private void createDao() throws Exception {
     // DAO 구현체 생성기를 준비한다.
     MybatisDaoFactory daoFactory = new MybatisDaoFactory(
         (SqlSessionFactory)objPool.get("sqlSessionFactory"));
-
-    // Command 객체가 사용할 데이터 처리 객체를 준비한다.
+    
+    // 데이터 처리 객체를 준비한다.
     objPool.put("boardDao", daoFactory.createDao(BoardDao.class));
     objPool.put("memberDao", daoFactory.createDao(MemberDao.class));
     objPool.put("lessonDao", daoFactory.createDao(LessonDao.class));
     objPool.put("photoBoardDao", daoFactory.createDao(PhotoBoardDao.class));
     objPool.put("photoFileDao", daoFactory.createDao(PhotoFileDao.class));
   }
-
 }
+
+
+
+
+
+
+

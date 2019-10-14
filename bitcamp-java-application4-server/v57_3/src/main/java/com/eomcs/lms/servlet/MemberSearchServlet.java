@@ -34,7 +34,7 @@ public class MemberSearchServlet extends HttpServlet {
           request.getParameter("keyword"));
       
       request.setAttribute("members", members);
-      request.getRequestDispatcher("/jsp/member/list.jsp").include(request, response);
+      request.getRequestDispatcher("/jsp/member/search.jsp").include(request, response);
       
     } catch (Exception e) {
       request.setAttribute("message", "데이터 검색에 실패했습니다!");

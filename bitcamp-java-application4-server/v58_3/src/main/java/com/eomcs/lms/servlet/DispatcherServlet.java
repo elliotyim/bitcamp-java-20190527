@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.reflections.ReflectionUtils.*;
@@ -43,14 +41,13 @@ public class DispatcherServlet extends HttpServlet {
         servletPath, pathInfo));
     
     try {
-      // 클라이언트 요청을 처리할 페이지 컨트롤러를 객체를 찾는다.
+      // 클라이언트 요청을 처리할 페이지 컨트롤로를 찾는다.
       Object pageController = iocContainer.getBean(pathInfo);
       
       // 페이지 컨트롤러에서 @RequestMapping이 붙은 메서드를 찾는다.
       Method requestHandler = findRequestHandler(pageController);
-      
       if (requestHandler == null) {
-        throw new Exception(pathInfo + "요청을 처리할 수 없습니다.");
+        throw new Exception(pathInfo + " 요청을 처리할 수 없습니다.");
       }
       
       // request handler를 실행한다.
@@ -83,11 +80,10 @@ public class DispatcherServlet extends HttpServlet {
   @SuppressWarnings("unchecked")
   private Method findRequestHandler(Object obj) {
     Set<Method> methods = getMethods(
-        obj.getClass(),
+        obj.getClass(), 
         withAnnotation(RequestMapping.class),
         withModifier(Modifier.PUBLIC));
     
-    // 핸들러에 어차피 메소드 하나 밖에 없으니까 하나 찾자마자 바로 리턴시킨다.
     for (Method method : methods) {
       return method;
     }

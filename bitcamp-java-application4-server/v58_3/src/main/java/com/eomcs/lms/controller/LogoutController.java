@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Component("/auth/logout")
-public class LogoutController implements PageController {
+public class LogoutController {
   
   @RequestMapping
   public String execute(HttpServletRequest request, HttpServletResponse response) 

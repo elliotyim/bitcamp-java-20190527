@@ -2,8 +2,8 @@
 package com.eomcs.lms;
 
 // 작업:
-// => java reflections 라이브러리 추가
-//    - 클래스에서 필드나 메서드 등의 정보를 좀 더 쉽게 뽑아주는 도구
+// => reflections 라이브러리 추가
+//    - 클래스에서 필드나 메서드 등의 정보를 좀 더 쉽게 뽑아주는 도구.
 // => PageController 인터페이스 삭제
 // => XxxController의 request handler에 @RequestMapping 애노테이션 붙이기
 // => @RequestMapping이 붙은 메서드를 호출하도록 DispatcherServlet 변경

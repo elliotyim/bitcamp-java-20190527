@@ -3,18 +3,15 @@ package com.eomcs.lms.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -26,16 +23,15 @@ public class PhotoBoardController {
   @Resource private PlatformTransactionManager txManager;
   @Resource private PhotoBoardDao photoBoardDao;
   @Resource private PhotoFileDao photoFileDao;
-
+  
   @RequestMapping("/photoboard/form")
   public String form() {
     return "/jsp/photoboard/form.jsp";
-    
   }
   
   @RequestMapping("/photoboard/add")
   public String add(
-      HttpServletRequest request,
+      HttpServletRequest request, 
       PhotoBoard photoBoard,
       Part[] filePath) throws Exception {
     
@@ -53,10 +49,10 @@ public class PhotoBoardController {
       
       int count = 0;
       for (Part part : filePath) {
-        // 클라이언트가 보낸 파일을 디스크에 저장한다.
         if (part.getSize() == 0)
           continue;
         
+        // 클라이언트가 보낸 파일을 디스크에 저장한다.
         String filename = UUID.randomUUID().toString();
         part.write(uploadDir + "/" + filename);
         
@@ -114,7 +110,6 @@ public class PhotoBoardController {
   public String detail(Map<String,Object> model, int no) 
       throws Exception {
 
-
     PhotoBoard photoBoard = photoBoardDao.findWithFilesBy(no);
     if (photoBoard == null) {
       throw new Exception("해당 번호의 데이터가 없습니다!");
@@ -136,10 +131,9 @@ public class PhotoBoardController {
   
   @RequestMapping("/photoboard/update")
   public String update(
-      HttpServletRequest request,
+      HttpServletRequest request, 
       PhotoBoard photoBoard,
-      Part[] filePath) 
-      throws Exception {
+      Part[] filePath) throws Exception {
 
     String uploadDir = request.getServletContext().getRealPath("/upload/photoboard");
 

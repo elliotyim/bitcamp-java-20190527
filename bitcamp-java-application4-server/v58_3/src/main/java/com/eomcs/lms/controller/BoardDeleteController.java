@@ -5,11 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.BoardDao;
 
 @Component("/board/delete")
-public class BoardDeleteController implements PageController {
+public class BoardDeleteController {
 
   @Resource
   private BoardDao boardDao;

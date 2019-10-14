@@ -1,4 +1,4 @@
-// v45_1 : Java Proxy를 이용하여 DAO 구현체 자동 생성하기 
+// v45_1 : Java Proxy를 이용하여 DAO 구현체 자동 생성하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -10,11 +10,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
@@ -68,7 +66,7 @@ public class App {
     try {
       InputStream inputStream = 
           Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml");
-      sqlSessionFactory = new SqlSessionFactoryProxy(
+      sqlSessionFactory =new SqlSessionFactoryProxy(
           new SqlSessionFactoryBuilder().build(inputStream));
       
       // 트랜잭션 관리자를 준비한다.

@@ -3,14 +3,11 @@ package com.eomcs.lms.handler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -18,6 +15,13 @@ import com.eomcs.lms.domain.PhotoFile;
 
 @Component
 public class PhotoBoardCommand {
+  
+  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
+  /*
+  private static final Logger logger = 
+      LogManager.getLogger(PhotoBoardCommand.class);
+  */
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
   
@@ -76,7 +80,6 @@ public class PhotoBoardCommand {
       }
       
       if (count == 0) {
-        out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
         throw new Exception("사진 파일 없음!");
       }
       

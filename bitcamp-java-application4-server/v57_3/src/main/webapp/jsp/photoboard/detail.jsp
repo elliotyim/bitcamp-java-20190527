@@ -28,6 +28,7 @@
 <c:forEach begin="1" end="6">
   사진: <input type='file' name='filePath'><br>
 </c:forEach>
+
 <button>변경</button>
 <a href='/photoboard/delete?no=${photoBoard.no}'>삭제</a>
 </form>

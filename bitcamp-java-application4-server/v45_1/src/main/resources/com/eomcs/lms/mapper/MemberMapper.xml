@@ -13,7 +13,7 @@
     -->
     <result column="cdt" property="registeredDate"/>
   </resultMap>
-  
+
   <sql id="basicColumn">
     select 
       member_id,
@@ -22,11 +22,11 @@
       tel,
       cdt
   </sql>
-  
+
   <sql id="where1">
     where member_id=#{no}
   </sql>
-
+  
   <select id="findAll" resultMap="MemberMap">
     <include refid="basicColumn"/>
     from lms_member
@@ -41,7 +41,7 @@
   </select>
 
   <select id="findByKeyword"
-          parameterType="String"
+          parameterType="string"
           resultMap="MemberMap">
     <bind name="pattern" value="'%' + _parameter + '%'"/>
     <include refid="basicColumn"/>

@@ -3,14 +3,12 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -19,6 +17,7 @@ import com.eomcs.util.Input;
 
 @Component
 public class PhotoBoardCommand {
+  
   private PlatformTransactionManager txManager;
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
@@ -31,7 +30,7 @@ public class PhotoBoardCommand {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
-  
+
   @RequestMapping("/photoboard/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
     // 트랜잭션 동작을 정의한다.
@@ -39,11 +38,10 @@ public class PhotoBoardCommand {
     def.setName("tx1");
     def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
     
-    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다.
+    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다. 
     TransactionStatus status = txManager.getTransaction(def);
-    
+
     try {
-      
       PhotoBoard photoBoard = new PhotoBoard();
       photoBoard.setTitle(Input.getStringValue(in, out, "제목? "));
       photoBoard.setLessonNo(Input.getIntValue(in, out, "수업? "));
@@ -81,6 +79,7 @@ public class PhotoBoardCommand {
       System.out.println(e.getMessage());
       e.printStackTrace();
     }
+     
   }
   
   @RequestMapping("/photoboard/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
@@ -90,7 +89,7 @@ public class PhotoBoardCommand {
     def.setName("tx1");
     def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
     
-    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다.
+    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다. 
     TransactionStatus status = txManager.getTransaction(def);
     
     try {
@@ -144,7 +143,7 @@ public class PhotoBoardCommand {
       
     } catch (Exception e) {
       out.println("데이터 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
   
@@ -163,7 +162,7 @@ public class PhotoBoardCommand {
       
     } catch (Exception e) {
       out.println("데이터 목록 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
   
@@ -174,7 +173,7 @@ public class PhotoBoardCommand {
     def.setName("tx1");
     def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
     
-    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다.
+    // 정의된 트랜잭션 동작에 따라 작업을 수행할 트랜잭션 객체를 준비한다. 
     TransactionStatus status = txManager.getTransaction(def);
     
     try {
@@ -250,5 +249,5 @@ public class PhotoBoardCommand {
       System.out.println(e.getMessage());
     }
   }
-  
+
 }

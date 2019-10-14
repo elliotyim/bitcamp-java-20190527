@@ -3,9 +3,7 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.HashMap;
-
 import org.springframework.stereotype.Component;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.Input;
@@ -28,6 +26,7 @@ public class LoginCommand {
       params.put("password", Input.getStringValue(in, out, "암호? "));
       
       Member member = memberDao.findByEmailPassword(params);
+      
       if (member == null) {
         out.println("이메일 또는 암호가 맞지 않습니다!");
       } else {

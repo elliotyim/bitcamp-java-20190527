@@ -17,6 +17,8 @@ public class LessonUpdateCommand implements Command {
   public String getCommandName() {
     return "/lesson/update";
   }
+  
+  
 
   @Override
   public void execute(BufferedReader in, PrintStream out) {

@@ -3,15 +3,13 @@ package com.eomcs.lms.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 @Component("/board/add")
-public class BoardAddController implements PageController {
+public class BoardAddController {
 
   @Resource
   private BoardDao boardDao;

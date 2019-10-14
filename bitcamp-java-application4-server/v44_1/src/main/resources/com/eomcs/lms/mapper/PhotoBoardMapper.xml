@@ -50,7 +50,9 @@
       photo_id=#{value}
   </select>
   
-  <select id="findWithFilesBy" parameterType="int" resultMap="PhotoBoardWithFilesMap">
+  <select id="findWithFilesBy" 
+          parameterType="int" 
+          resultMap="PhotoBoardWithFilesMap">
     select
       p.photo_id,
       p.titl,
@@ -59,10 +61,10 @@
       p.lesson_id,
       f.photo_file_id,
       f.file_path
-    from
-      lms_photo p
+    from 
+      lms_photo p 
         left outer join lms_photo_file f on p.photo_id=f.photo_id
-    where
+    where 
       p.photo_id=#{value}
   </select>
   

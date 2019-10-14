@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Component;
@@ -17,10 +16,9 @@ public class BoardUpdateCommand {
   public BoardUpdateCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
-  
+
   @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void execute(BufferedReader in, PrintStream out) {
-    
     try {
       int no = Input.getIntValue(in, out, "번호? ");
       

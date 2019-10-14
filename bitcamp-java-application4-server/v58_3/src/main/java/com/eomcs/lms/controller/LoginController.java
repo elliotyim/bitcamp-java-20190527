@@ -8,12 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 @Component("/auth/login")
-public class LoginController implements PageController {
+public class LoginController {
 
   @Resource
   private MemberDao memberDao;

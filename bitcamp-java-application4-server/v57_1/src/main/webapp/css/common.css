@@ -15,6 +15,7 @@
   height: 40px;
   width: 1100px;
   text-align: center;
+  vertical-align: middle;
   padding-top: 10px;
   margin: auto auto;
 }
@@ -26,11 +27,17 @@
 }
 
 .photo1 {
-  height: 300px;
+  height: 120px;
 }
 
 .photo2 {
-  height: 150px;
-  margin 5px;
+  height: 100px;
+  margin: 2px;
 }
+
+
+
+
+
+
 

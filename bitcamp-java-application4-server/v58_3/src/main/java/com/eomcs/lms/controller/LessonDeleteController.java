@@ -5,11 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.LessonDao;
 
 @Component("/lesson/delete")
-public class LessonDeleteController implements PageController {
+public class LessonDeleteController {
   
   @Resource
   private LessonDao lessonDao;

@@ -1,20 +1,17 @@
 package com.eomcs.lms.controller;
 
 import java.util.HashMap;
-
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 @Controller
-public class AuthController{
+public class AuthController {
 
   @Resource
   private MemberDao memberDao;
@@ -22,9 +19,8 @@ public class AuthController{
   @RequestMapping("/auth/form")
   public String form() {
     return "/jsp/auth/form.jsp";
-    
   }
-
+  
   @RequestMapping("/auth/login")
   public String login(
       HttpServletResponse response,
@@ -54,8 +50,8 @@ public class AuthController{
   @RequestMapping("/auth/logout")
   public String logout(HttpSession session) 
       throws Exception {
-    
     session.invalidate();
     return "redirect:form";
   }
+
 }

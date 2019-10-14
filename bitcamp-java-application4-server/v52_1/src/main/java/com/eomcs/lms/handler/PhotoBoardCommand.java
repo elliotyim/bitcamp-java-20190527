@@ -3,11 +3,9 @@ package com.eomcs.lms.handler;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -16,6 +14,7 @@ import com.eomcs.util.Input;
 
 @Component
 public class PhotoBoardCommand {
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
   
@@ -25,7 +24,7 @@ public class PhotoBoardCommand {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
-  
+
   @Transactional
   @RequestMapping("/photoboard/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
@@ -119,7 +118,7 @@ public class PhotoBoardCommand {
       
     } catch (Exception e) {
       out.println("데이터 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
   
@@ -138,7 +137,7 @@ public class PhotoBoardCommand {
       
     } catch (Exception e) {
       out.println("데이터 목록 조회에 실패했습니다!");
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
   
@@ -216,5 +215,5 @@ public class PhotoBoardCommand {
       throw new RuntimeException(e);
     }
   }
-  
+
 }

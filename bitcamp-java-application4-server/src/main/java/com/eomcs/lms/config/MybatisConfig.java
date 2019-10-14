@@ -1,15 +1,15 @@
 package com.eomcs.lms.config;
 
 import javax.sql.DataSource;
+
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @MapperScan("com.eomcs.lms.dao")
 public class MybatisConfig {
   

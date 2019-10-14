@@ -2,7 +2,6 @@ package com.eomcs.util;
 
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +24,6 @@ public class ServletRequest {
         params.put(nv.getName(), nv.getValue());
         logger.debug(String.format("%s => %s", nv.getName(), nv.getValue()));
       }
-        
     } catch (Exception e) {
       // 예외 무시
     }
@@ -38,5 +36,14 @@ public class ServletRequest {
   public String getParameter(String name) {
     return params.get(name);
   }
-  
 }
+
+
+
+
+
+
+
+
+
+

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
@@ -82,7 +81,7 @@ public class LoginServlet extends HttpServlet {
         
       } else {
         out.printf("<p>%s 님 환영합니다.</p>\n", member.getName());
-        
+       
         // 로그인 사용자의 정보를 HttpSession 보관소에 저장한다.
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", member);
